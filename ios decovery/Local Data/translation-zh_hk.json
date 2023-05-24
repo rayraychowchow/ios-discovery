@@ -1,0 +1,13 @@
+{
+    "current_language": "zh",
+    "main_view_app_bar_title_albums": "搜尋專輯",
+    "main_view_app_bar_title_bookmarks": "向左掃刪除",
+    "main_view_bottom_navigation_item_title_albums": "專輯",
+    "main_view_bottom_navigation_item_title_bookmark": "書籤",
+    "main_view_bottom_navigation_item_title_settings": "設定",
+    "album_view_placeholder_search": "搜尋",
+    "settings_view_dark_mode": "深色模式",
+    "details_view_do_you_like_it_and_ask_for_bookmark": "你鐘意?",
+    "details_view_bookmark_now": "Bookmark now!!",
+    "general_error": "錯誤"
+}

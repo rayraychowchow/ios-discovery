@@ -1,0 +1,13 @@
+{
+    "current_language": "en",
+    "main_view_app_bar_title_albums": "Search for albums",
+    "main_view_app_bar_title_bookmarks": "Swipe to delete",
+    "main_view_bottom_navigation_item_title_albums": "Albums",
+    "main_view_bottom_navigation_item_title_bookmark": "Bookmark",
+    "main_view_bottom_navigation_item_title_settings": "Settings",
+    "album_view_placeholder_search": "Search",
+    "settings_view_dark_mode": "Dark Mode",
+    "details_view_do_you_like_it_and_ask_for_bookmark": "Do you like it?",
+    "details_view_bookmark_now": "Bookmark now!!",
+    "general_error": "Error"
+}

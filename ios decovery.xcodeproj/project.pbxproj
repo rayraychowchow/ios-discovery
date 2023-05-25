@@ -42,6 +42,8 @@
 		99ACF2382A1DF0D100C953FF /* MainTabScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99ACF2372A1DF0D100C953FF /* MainTabScene.swift */; };
 		99ACF23B2A1DFC5700C953FF /* AlbumCoordinatorType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99ACF23A2A1DFC5700C953FF /* AlbumCoordinatorType.swift */; };
 		99ACF23E2A1E0B8400C953FF /* CustomNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99ACF23D2A1E0B8400C953FF /* CustomNavigationController.swift */; };
+		99ACF2412A1F3CFA00C953FF /* Then in Frameworks */ = {isa = PBXBuildFile; productRef = 99ACF2402A1F3CFA00C953FF /* Then */; };
+		99ACF2432A1F3F1D00C953FF /* LanguageCoordinatorType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99ACF2422A1F3F1D00C953FF /* LanguageCoordinatorType.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -76,6 +78,7 @@
 		99ACF2372A1DF0D100C953FF /* MainTabScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabScene.swift; sourceTree = "<group>"; };
 		99ACF23A2A1DFC5700C953FF /* AlbumCoordinatorType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumCoordinatorType.swift; sourceTree = "<group>"; };
 		99ACF23D2A1E0B8400C953FF /* CustomNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomNavigationController.swift; sourceTree = "<group>"; };
+		99ACF2422A1F3F1D00C953FF /* LanguageCoordinatorType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LanguageCoordinatorType.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -86,6 +89,7 @@
 				99ACF1EA2A1C9DE700C953FF /* RxRelay in Frameworks */,
 				99ACF1E82A1C9DE700C953FF /* RxCocoa in Frameworks */,
 				99ACF1EF2A1C9DF700C953FF /* TinyConstraints in Frameworks */,
+				99ACF2412A1F3CFA00C953FF /* Then in Frameworks */,
 				99ACF1F22A1C9ED400C953FF /* Alamofire in Frameworks */,
 				99ACF1EC2A1C9DE700C953FF /* RxSwift in Frameworks */,
 				99ACF1E62A1C9DE700C953FF /* RxBlocking in Frameworks */,
@@ -312,6 +316,7 @@
 			isa = PBXGroup;
 			children = (
 				99ACF23A2A1DFC5700C953FF /* AlbumCoordinatorType.swift */,
+				99ACF2422A1F3F1D00C953FF /* LanguageCoordinatorType.swift */,
 			);
 			path = "Coordinator Type";
 			sourceTree = "<group>";
@@ -347,6 +352,7 @@
 				99ACF1EB2A1C9DE700C953FF /* RxSwift */,
 				99ACF1EE2A1C9DF700C953FF /* TinyConstraints */,
 				99ACF1F12A1C9ED400C953FF /* Alamofire */,
+				99ACF2402A1F3CFA00C953FF /* Then */,
 			);
 			productName = "ios decovery";
 			productReference = 99ACF1CD2A1C9B6000C953FF /* ios decovery.app */;
@@ -380,6 +386,7 @@
 				99ACF1E42A1C9DE700C953FF /* XCRemoteSwiftPackageReference "RxSwift" */,
 				99ACF1ED2A1C9DF700C953FF /* XCRemoteSwiftPackageReference "TinyConstraints" */,
 				99ACF1F02A1C9ED400C953FF /* XCRemoteSwiftPackageReference "Alamofire" */,
+				99ACF23F2A1F3CFA00C953FF /* XCRemoteSwiftPackageReference "Then" */,
 			);
 			productRefGroup = 99ACF1CE2A1C9B6000C953FF /* Products */;
 			projectDirPath = "";
@@ -423,6 +430,7 @@
 				99ACF23E2A1E0B8400C953FF /* CustomNavigationController.swift in Sources */,
 				99ACF2252A1CC80700C953FF /* StringProviderType.swift in Sources */,
 				99ACF2202A1CBCD800C953FF /* SceneCreator.swift in Sources */,
+				99ACF2432A1F3F1D00C953FF /* LanguageCoordinatorType.swift in Sources */,
 				99ACF1D12A1C9B6000C953FF /* AppDelegate.swift in Sources */,
 				99ACF23B2A1DFC5700C953FF /* AlbumCoordinatorType.swift in Sources */,
 				99ACF21C2A1CBA1A00C953FF /* ViewModelType.swift in Sources */,
@@ -669,6 +677,14 @@
 				minimumVersion = 5.0.0;
 			};
 		};
+		99ACF23F2A1F3CFA00C953FF /* XCRemoteSwiftPackageReference "Then" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/devxoul/Then";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 3.0.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -701,6 +717,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 99ACF1F02A1C9ED400C953FF /* XCRemoteSwiftPackageReference "Alamofire" */;
 			productName = Alamofire;
+		};
+		99ACF2402A1F3CFA00C953FF /* Then */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 99ACF23F2A1F3CFA00C953FF /* XCRemoteSwiftPackageReference "Then" */;
+			productName = Then;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

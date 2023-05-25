@@ -13,9 +13,10 @@ class MainTabController : UITabBarController {
     public typealias ViewModel = MainTabViewModel
     private let _viewModel: ViewModel
     private let _disposeBag = DisposeBag()
-    
-    init(viewModel: ViewModel) {
+    private let _viewControllers: [UIViewController]
+    init(viewModel: ViewModel, viewControllers: [UIViewController]) {
         _viewModel = viewModel
+        _viewControllers = viewControllers
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -30,7 +31,15 @@ class MainTabController : UITabBarController {
     }
     
     func setupUI() {
-        tabBar.backgroundColor = UIColor.white
+        setViewControllers(_viewControllers, animated: true)
+        UITabBar.appearance().backgroundColor = UIColor.white
+        
+        let appearance = tabBar.standardAppearance
+                appearance.stackedLayoutAppearance.normal.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.gray]
+                appearance.stackedLayoutAppearance.normal.iconColor = UIColor.gray
+        tabBar.standardAppearance = appearance
+        
+        
     }
     
     func bindViewModel() {

@@ -34,6 +34,7 @@ class StringProvider {
             .observe(on: SerialDispatchQueueScheduler(queue: queue, internalSerialQueueName: Self.rxQueueName))
             .withUnretained(self)
             .flatMapLatest({ this, language -> Single<[String:String]> in
+                UserDefaultsStore.shared.currentLanguage = language
                 return this.getLanguage(language: language)
             }).bind(to: translations).disposed(by: disposeBag)
     }

@@ -9,7 +9,7 @@ import Foundation
 import UIKit
 import RxSwift
 
-class Coordinator: AlbumCoordinatorType {
+class Coordinator: AlbumCoordinatorType, LanguageCoordinatorType {
     
     
     let networkService = NetworkService()
@@ -36,6 +36,16 @@ class Coordinator: AlbumCoordinatorType {
     }
     
     func presentAlbumDetailsView() {
+        
+    }
+    
+    func changeLanguage() {
+        let currentLanguage = UserDefaultsStore.shared.currentLanguage ?? Language.en
+        if (currentLanguage == .en) {
+            onChangeLanguageStream.onNext(.zh_hk)
+        } else {
+            onChangeLanguageStream.onNext(.en)
+        }
         
     }
 }

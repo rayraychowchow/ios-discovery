@@ -23,6 +23,14 @@ class AlbumViewController: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
+    func setupTabBar() {
+        navigationController?.tabBarItem.image = UIImage(named: "library_music")
+        
+        if let tabBarItemRxTitle = navigationController?.tabBarItem.rx.title {
+            _viewModel.output.tabbarTitle.drive(tabBarItemRxTitle).disposed(by: disposeBag)
+        }
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
@@ -31,15 +39,10 @@ class AlbumViewController: UIViewController {
     
     func setupUI() {
         view.backgroundColor = .red
-        
-        
-        tabBarItem.image = UIImage.checkmark
     }
     
     func bindViewModel() {
-        if let tabBarItemRxTitle = tabBarItem?.rx.title {
-            _viewModel.output.tabbarTitle.drive(tabBarItemRxTitle).disposed(by: disposeBag)
-        }
+      
         
     }
 }

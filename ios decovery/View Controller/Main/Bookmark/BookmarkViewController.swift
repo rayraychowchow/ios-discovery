@@ -7,10 +7,13 @@
 
 import Foundation
 import UIKit
+import RxSwift
+import RxCocoa
 
 class BookmarkViewController: UIViewController {
     public typealias ViewModel = BookmarkViewModel
     private let _viewModel: ViewModel
+    private let disposeBag = DisposeBag()
     
     init(viewModel: ViewModel) {
         _viewModel = viewModel
@@ -21,10 +24,17 @@ class BookmarkViewController: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
+    func setupTabBar() {
+        navigationController?.tabBarItem.image = UIImage(named: "bookmark_added")
+        
+        if let tabBarItemRxTitle = navigationController?.tabBarItem.rx.title {
+            _viewModel.output.tabbarTitle.drive(tabBarItemRxTitle).disposed(by: disposeBag)
+        }
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .green
-        tabBarItem.image = UIImage.checkmark
-        tabBarItem.title = "Bookmark"
+              
     }
 }

@@ -25,21 +25,18 @@ class SceneCreator {
     }
     
     func forMainTabController() -> ResultType {
-        let mainTabController = MainTabController(viewModel: MainTabViewModel(stringProvider: stringProvider))
         var viewControllers: [UIViewController] = []
         MainTabScene.allCases.forEach { scene in
             if let vc = getViewControllerForMainTab(scene) {
                 viewControllers.append(vc)
             }
         }
-        mainTabController.viewControllers = viewControllers
-        mainTabController.selectedIndex = 0
-        
-        return embedWithUINavigationController(viewController: mainTabController)
+        let mainTabController = MainTabController(viewModel: MainTabViewModel(stringProvider: stringProvider), viewControllers: viewControllers)
+        return mainTabController
     }
     
     private func embedWithUINavigationController(viewController: UIViewController) -> ResultType {
-        let navigationController = UINavigationController(rootViewController: viewController)
+        let navigationController = CustomNavigationController(rootViewController: viewController)
         let appearance = UINavigationBarAppearance()
         appearance.configureWithOpaqueBackground()
         appearance.backgroundColor = .white
@@ -55,13 +52,22 @@ class SceneCreator {
         switch (scene) {
         case .album:
             let viewModel = AlbumViewModel(stringProvider: stringProvider, networkService: networkService, localDatabaseService: localDatabaseService)
-            return AlbumViewController(viewModel: viewModel)
+            let albumVC = AlbumViewController(viewModel: viewModel)
+            let albumWithNavVC = embedWithUINavigationController(viewController: albumVC)
+            albumVC.setupTabBar()
+            return albumWithNavVC
         case .bookmark:
-            let viewModel = BookmarkViewModel(localDatabaseService: localDatabaseService)
-            return BookmarkViewController(viewModel: viewModel)
+            let viewModel = BookmarkViewModel(stringProvider: stringProvider, localDatabaseService: localDatabaseService)
+            let bookmarkVC = BookmarkViewController(viewModel: viewModel)
+            let bookmarkWithNavVC = embedWithUINavigationController(viewController: bookmarkVC)
+            bookmarkVC.setupTabBar()
+            return bookmarkWithNavVC
         case .settings:
-            let viewModel = SettingsViewModel(userDefaultsStore: userDefaultsStore)
-            return SettingsViewController(viewModel: viewModel)
+            let viewModel = SettingsViewModel(languageCoordinatorType: parent, stringProvider: stringProvider, userDefaultsStore: userDefaultsStore)
+            let settingsVC = SettingsViewController(viewModel: viewModel)
+            let settingsWithNavVC = embedWithUINavigationController(viewController: settingsVC)
+            settingsVC.setupTabBar()
+            return settingsWithNavVC
         }
     }
 }

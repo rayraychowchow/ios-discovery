@@ -7,14 +7,17 @@
 
 import Foundation
 import RxSwift
+import RxCocoa
 
 class BookmarkViewModel: CommonViewModel {
     fileprivate let _onError = PublishSubject<Error>()
     var onError: Observable<Error> { _onError }
     
-    private let localDatabaseService: LocalDatabaseService
+    fileprivate let stringProvider: StringProvider
+    fileprivate let localDatabaseService: LocalDatabaseService
     
-    init(localDatabaseService: LocalDatabaseService) {
+    init(stringProvider: StringProvider, localDatabaseService: LocalDatabaseService) {
+        self.stringProvider = stringProvider
         self.localDatabaseService = localDatabaseService
     }
 }
@@ -24,5 +27,7 @@ extension ViewModelInput where ViewModel: BookmarkViewModel {
 }
 
 extension ViewModelOutput where ViewModel: BookmarkViewModel {
-   
+    var tabbarTitle: Driver<String> {
+        base.stringProvider.stringObservable(forKey: "main_view_bottom_navigation_item_title_settings").asDriver(onErrorJustReturn: "")
+    }
 }

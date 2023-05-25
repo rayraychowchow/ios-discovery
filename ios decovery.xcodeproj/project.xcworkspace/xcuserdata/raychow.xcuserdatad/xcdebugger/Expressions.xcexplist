@@ -4,6 +4,14 @@
    <ContextStates>
       <ContextState
          contextName = "MainTabController.viewDidLoad():MainTabController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "navigationItem">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "AlbumViewController.setupUI():AlbumViewController.swift">
       </ContextState>
    </ContextStates>
 </VariablesViewState>

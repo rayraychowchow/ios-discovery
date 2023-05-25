@@ -7,10 +7,12 @@
 
 import Foundation
 import UIKit
+import RxSwift
 
 class MainTabController : UITabBarController {
     public typealias ViewModel = MainTabViewModel
     private let _viewModel: ViewModel
+    private let _disposeBag = DisposeBag()
     
     init(viewModel: ViewModel) {
         _viewModel = viewModel
@@ -23,14 +25,21 @@ class MainTabController : UITabBarController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        delegate = self
-
+        setupUI()
+        bindViewModel()
+    }
+    
+    func setupUI() {
         tabBar.backgroundColor = UIColor.white
     }
     
-    
-}
-
-extension MainTabController: UITabBarControllerDelegate {
+    func bindViewModel() {
+        _disposeBag.insert (
+            [rx.didSelect.withUnretained(self).map { this, vc in
+                this.viewControllers?.firstIndex(of: vc) ?? 0
+            }.bind(to: _viewModel.input.onTabSwitched),
+             _viewModel.output.navigationTitle.drive(navigationItem.rx.title)]
+        )
+    }
     
 }

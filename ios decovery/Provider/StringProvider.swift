@@ -56,7 +56,7 @@ class StringProvider {
     }
     
     private func getTranslationFileUrl(for language: Language) -> URL? {
-        let filenamePrefix = "translation-"
+        let filenamePrefix = "Local Data/translation-"
         let resourceName: String
         switch language {
         case .en:

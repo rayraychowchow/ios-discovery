@@ -25,7 +25,7 @@ class SceneCreator {
     }
     
     func forMainTabController() -> ResultType {
-        let mainTabController = MainTabController(viewModel: MainTabViewModel())
+        let mainTabController = MainTabController(viewModel: MainTabViewModel(stringProvider: stringProvider))
         var viewControllers: [UIViewController] = []
         MainTabScene.allCases.forEach { scene in
             if let vc = getViewControllerForMainTab(scene) {
@@ -39,12 +39,14 @@ class SceneCreator {
     }
     
     private func embedWithUINavigationController(viewController: UIViewController) -> ResultType {
-        let navigationController = CustomNavigationController(rootViewController: viewController)
+        let navigationController = UINavigationController(rootViewController: viewController)
         let appearance = UINavigationBarAppearance()
         appearance.configureWithOpaqueBackground()
         appearance.backgroundColor = .white
+        appearance.titleTextAttributes = [.foregroundColor: UIColor.black]
         UINavigationBar.appearance(whenContainedInInstancesOf: [UINavigationController.self]).standardAppearance = appearance
         UINavigationBar.appearance(whenContainedInInstancesOf: [UINavigationController.self]).scrollEdgeAppearance = appearance
+        
         
         return navigationController
     }
@@ -52,7 +54,7 @@ class SceneCreator {
     private func getViewControllerForMainTab(_ scene: MainTabScene) -> ResultType {
         switch (scene) {
         case .album:
-            let viewModel = AlbumViewModel(networkService: networkService, localDatabaseService: localDatabaseService)
+            let viewModel = AlbumViewModel(stringProvider: stringProvider, networkService: networkService, localDatabaseService: localDatabaseService)
             return AlbumViewController(viewModel: viewModel)
         case .bookmark:
             let viewModel = BookmarkViewModel(localDatabaseService: localDatabaseService)

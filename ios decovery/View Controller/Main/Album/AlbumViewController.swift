@@ -8,11 +8,15 @@
 import Foundation
 import UIKit
 import RxSwift
+import Then
+import TinyConstraints
 
 class AlbumViewController: UIViewController {
     public typealias ViewModel = AlbumViewModel
     private let _viewModel: ViewModel
     private let disposeBag = DisposeBag()
+    
+    private let testButton = UIButton()
     
     init(viewModel: ViewModel) {
         _viewModel = viewModel
@@ -39,10 +43,19 @@ class AlbumViewController: UIViewController {
     
     func setupUI() {
         view.backgroundColor = .red
+        view.addSubview(testButton)
+        
+        testButton.do {
+            $0.setTitle("show details", for: .normal)
+            $0.setTitleColor(.black, for: .normal)
+            $0.centerInSuperview()
+        }
     }
     
     func bindViewModel() {
-      
+        disposeBag.insert([
+            testButton.rx.tap.bind(to: _viewModel.input.onTestButtonTapped)
+        ])
         
     }
 }

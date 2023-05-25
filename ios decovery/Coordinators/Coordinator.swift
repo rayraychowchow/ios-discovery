@@ -9,7 +9,7 @@ import Foundation
 import UIKit
 import RxSwift
 
-class Coordinator: AlbumCoordinatorType, LanguageCoordinatorType {
+class Coordinator: AlbumCoordinatorType, LanguageCoordinatorType, ModalViewCorrdinatorType {
     
     
     let networkService = NetworkService()
@@ -35,8 +35,14 @@ class Coordinator: AlbumCoordinatorType, LanguageCoordinatorType {
         _rootViewController = sceneCreator.forMainTabController() ?? UIViewController()
     }
     
+    func dismissView() {
+        _rootViewController.dismiss(animated: true)
+    }
+    
     func presentAlbumDetailsView() {
-        
+        let sceneCreator = SceneCreator(coordinator: self)
+        guard let detailsVC = sceneCreator.getDetailsViewController() else { return }
+        _rootViewController.present(detailsVC, animated: true)
     }
     
     func changeLanguage() {
@@ -46,6 +52,5 @@ class Coordinator: AlbumCoordinatorType, LanguageCoordinatorType {
         } else {
             onChangeLanguageStream.onNext(.en)
         }
-        
     }
 }

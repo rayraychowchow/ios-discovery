@@ -44,6 +44,9 @@
 		99ACF23E2A1E0B8400C953FF /* CustomNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99ACF23D2A1E0B8400C953FF /* CustomNavigationController.swift */; };
 		99ACF2412A1F3CFA00C953FF /* Then in Frameworks */ = {isa = PBXBuildFile; productRef = 99ACF2402A1F3CFA00C953FF /* Then */; };
 		99ACF2432A1F3F1D00C953FF /* LanguageCoordinatorType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99ACF2422A1F3F1D00C953FF /* LanguageCoordinatorType.swift */; };
+		99ACF2452A1F463E00C953FF /* DetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99ACF2442A1F463E00C953FF /* DetailsViewController.swift */; };
+		99ACF2472A1F4B2D00C953FF /* ModalViewCorrdinatorType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99ACF2462A1F4B2D00C953FF /* ModalViewCorrdinatorType.swift */; };
+		99ACF24A2A1F4C2600C953FF /* DetailsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99ACF2492A1F4C2600C953FF /* DetailsViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -79,6 +82,9 @@
 		99ACF23A2A1DFC5700C953FF /* AlbumCoordinatorType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumCoordinatorType.swift; sourceTree = "<group>"; };
 		99ACF23D2A1E0B8400C953FF /* CustomNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomNavigationController.swift; sourceTree = "<group>"; };
 		99ACF2422A1F3F1D00C953FF /* LanguageCoordinatorType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LanguageCoordinatorType.swift; sourceTree = "<group>"; };
+		99ACF2442A1F463E00C953FF /* DetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailsViewController.swift; sourceTree = "<group>"; };
+		99ACF2462A1F4B2D00C953FF /* ModalViewCorrdinatorType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModalViewCorrdinatorType.swift; sourceTree = "<group>"; };
+		99ACF2492A1F4C2600C953FF /* DetailsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailsViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -190,6 +196,7 @@
 		99ACF1FB2A1CA54700C953FF /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
+				99ACF2482A1F4C1900C953FF /* Details */,
 				99ACF20F2A1CB23000C953FF /* Main */,
 				99ACF21B2A1CBA1A00C953FF /* ViewModelType.swift */,
 				99ACF21D2A1CBAA300C953FF /* CommonViewModel.swift */,
@@ -220,6 +227,7 @@
 		99ACF2082A1CB1F500C953FF /* Details */ = {
 			isa = PBXGroup;
 			children = (
+				99ACF2442A1F463E00C953FF /* DetailsViewController.swift */,
 			);
 			path = Details;
 			sourceTree = "<group>";
@@ -316,6 +324,7 @@
 			isa = PBXGroup;
 			children = (
 				99ACF23A2A1DFC5700C953FF /* AlbumCoordinatorType.swift */,
+				99ACF2462A1F4B2D00C953FF /* ModalViewCorrdinatorType.swift */,
 				99ACF2422A1F3F1D00C953FF /* LanguageCoordinatorType.swift */,
 			);
 			path = "Coordinator Type";
@@ -327,6 +336,14 @@
 				99ACF23D2A1E0B8400C953FF /* CustomNavigationController.swift */,
 			);
 			path = "Navigation Conoller";
+			sourceTree = "<group>";
+		};
+		99ACF2482A1F4C1900C953FF /* Details */ = {
+			isa = PBXGroup;
+			children = (
+				99ACF2492A1F4C2600C953FF /* DetailsViewModel.swift */,
+			);
+			path = Details;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -426,11 +443,13 @@
 				99ACF2042A1CAA4400C953FF /* LocalDatabaseService.swift in Sources */,
 				99ACF21E2A1CBAA300C953FF /* CommonViewModel.swift in Sources */,
 				99ACF20A2A1CB20700C953FF /* AlbumViewController.swift in Sources */,
+				99ACF2452A1F463E00C953FF /* DetailsViewController.swift in Sources */,
 				99ACF20C2A1CB21400C953FF /* BookmarkViewController.swift in Sources */,
 				99ACF23E2A1E0B8400C953FF /* CustomNavigationController.swift in Sources */,
 				99ACF2252A1CC80700C953FF /* StringProviderType.swift in Sources */,
 				99ACF2202A1CBCD800C953FF /* SceneCreator.swift in Sources */,
 				99ACF2432A1F3F1D00C953FF /* LanguageCoordinatorType.swift in Sources */,
+				99ACF24A2A1F4C2600C953FF /* DetailsViewModel.swift in Sources */,
 				99ACF1D12A1C9B6000C953FF /* AppDelegate.swift in Sources */,
 				99ACF23B2A1DFC5700C953FF /* AlbumCoordinatorType.swift in Sources */,
 				99ACF21C2A1CBA1A00C953FF /* ViewModelType.swift in Sources */,
@@ -438,6 +457,7 @@
 				99ACF2172A1CB28E00C953FF /* BookmarkViewModel.swift in Sources */,
 				99ACF1FA2A1CA4C300C953FF /* MainTabController.swift in Sources */,
 				99ACF2022A1CAA3700C953FF /* UserDefaultsStore.swift in Sources */,
+				99ACF2472A1F4B2D00C953FF /* ModalViewCorrdinatorType.swift in Sources */,
 				99ACF2362A1DEFD000C953FF /* Scene.swift in Sources */,
 				99ACF1D32A1C9B6000C953FF /* SceneDelegate.swift in Sources */,
 				99ACF21A2A1CB29E00C953FF /* SettingsViewModel.swift in Sources */,

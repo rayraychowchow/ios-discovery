@@ -44,14 +44,14 @@ class SceneCreator {
         UINavigationBar.appearance(whenContainedInInstancesOf: [UINavigationController.self]).standardAppearance = appearance
         UINavigationBar.appearance(whenContainedInInstancesOf: [UINavigationController.self]).scrollEdgeAppearance = appearance
         
-        
+        navigationController.modalPresentationStyle = .fullScreen
         return navigationController
     }
     
     private func getViewControllerForMainTab(_ scene: MainTabScene) -> ResultType {
         switch (scene) {
         case .album:
-            let viewModel = AlbumViewModel(stringProvider: stringProvider, networkService: networkService, localDatabaseService: localDatabaseService)
+            let viewModel = AlbumViewModel(albumCoordinatorType: parent, stringProvider: stringProvider, networkService: networkService, localDatabaseService: localDatabaseService)
             let albumVC = AlbumViewController(viewModel: viewModel)
             let albumWithNavVC = embedWithUINavigationController(viewController: albumVC)
             albumVC.setupTabBar()
@@ -69,5 +69,9 @@ class SceneCreator {
             settingsVC.setupTabBar()
             return settingsWithNavVC
         }
+    }
+    
+    func getDetailsViewController() -> ResultType {
+        return embedWithUINavigationController(viewController: DetailsViewController(viewModel: DetailsViewModel(modalViewCorrdinatorType: parent, stringProvider: stringProvider)))
     }
 }

@@ -8,6 +8,7 @@
 import Foundation
 import UIKit
 import RxSwift
+import RxCocoa
 import Then
 import TinyConstraints
 
@@ -17,8 +18,6 @@ class SettingsViewController: UIViewController {
     private let disposeBag = DisposeBag()
     
     private let tableView = UITableView()
-    
-    private let button = UIButton()
     
     init(viewModel: ViewModel) {
         _viewModel = viewModel
@@ -45,16 +44,36 @@ class SettingsViewController: UIViewController {
     
     func setupUI() {
         view.backgroundColor = .white
-        view.addSubview(button)
-        button.do {
-            $0.setTitle("ascoinasco", for: .normal)
-            $0.centerInSuperview()
-            $0.setTitleColor(.black, for: .normal)
+        
+        view.addSubview(tableView)
+        tableView.do {
+            $0.edgesToSuperview()
+            $0.backgroundColor = .white
         }
+        
+        tableView.register(SettingsTableViewCell.self, forCellReuseIdentifier: SettingsTableViewCell.reuseId)
+        tableView.register(SettingsWithSwitchTableViewCell.self, forCellReuseIdentifier: SettingsWithSwitchTableViewCell.reuseId)
     }
     
     func bindViewModel() {
-        button.rx.tap.bind(to: _viewModel.input.onLanguageButtonTapped).disposed(by: disposeBag)
-        
+        _viewModel.output.data.bind(to: tableView.rx.items) { tableview, index, appSetting in
+            switch (appSetting) {
+            case .language(let model):
+                if let cell = tableview.dequeueReusableCell(withIdentifier: SettingsTableViewCell.reuseId) as? SettingsTableViewCell {
+                    cell.setupCell(languageSetting: model)
+                    return cell
+                }
+                break
+            case .darkMode(let model):
+                if let cell = tableview.dequeueReusableCell(withIdentifier: SettingsWithSwitchTableViewCell.reuseId) as? SettingsWithSwitchTableViewCell {
+                    cell.setupCell(darkModeSetting: model)
+                    return cell
+                }
+                break
+            }
+            return UITableViewCell()
+        }.disposed(by: disposeBag)
+  
+        rx.viewWillAppear.take(1).bind(to: _viewModel.input.onReload).disposed(by: disposeBag)
     }
 }

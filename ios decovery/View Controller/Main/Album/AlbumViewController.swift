@@ -54,8 +54,12 @@ class AlbumViewController: UIViewController {
     
     func bindViewModel() {
         disposeBag.insert([
-            testButton.rx.tap.bind(to: _viewModel.input.onTestButtonTapped)
+            testButton.rx.tap.bind(to: _viewModel.input.onTestButtonTapped),
+            rx.viewWillAppear.take(1).bind(to: _viewModel.input.onReload),
+            _viewModel.output.navigationTitle.drive(rx.title)
         ])
+        
+            
         
     }
 }

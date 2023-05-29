@@ -3,6 +3,12 @@
    version = "1.0">
    <ContextStates>
       <ContextState
+         contextName = "AlbumViewController.setupUI():AlbumViewController.swift">
+      </ContextState>
+      <ContextState
+         contextName = "closure #1 in SceneCreator.forMainTabController():SceneCreator.swift">
+      </ContextState>
+      <ContextState
          contextName = "MainTabController.viewDidLoad():MainTabController.swift">
          <PersistentStrings>
             <PersistentString
@@ -11,7 +17,7 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "AlbumViewController.setupUI():AlbumViewController.swift">
+         contextName = "closure #2 in closure #1 in NetworkService.request&lt;&#x3c4;_0_0&gt;(url:params:method:encoding:requireHeader:):NetworkService.swift">
       </ContextState>
    </ContextStates>
 </VariablesViewState>

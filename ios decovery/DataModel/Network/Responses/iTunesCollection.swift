@@ -29,6 +29,7 @@ struct iTunesCollection: Codable {
     var currency: String? = ""
     var releaseDate: Date? = Date() //"2005-03-01T08:00:00Z"
     var primaryGenreName: String? = ""
+    var bookmarked: Bool? = false
 }
 
 class iTunesCollectionObject {

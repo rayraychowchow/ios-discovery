@@ -49,6 +49,7 @@ class SettingsViewController: UIViewController {
         tableView.do {
             $0.edgesToSuperview()
             $0.backgroundColor = .white
+            $0.rowHeight = 44
         }
         
         tableView.register(SettingsTableViewCell.self, forCellReuseIdentifier: SettingsTableViewCell.reuseId)
@@ -68,7 +69,7 @@ class SettingsViewController: UIViewController {
             case .darkMode(let model):
                 if let cell = tableview.dequeueReusableCell(withIdentifier: SettingsWithSwitchTableViewCell.reuseId) as? SettingsWithSwitchTableViewCell {
                     cell.setupCell(darkModeSetting: model)
-                    cell.switchButton.rx.isOn.debounce(RxTimeInterval.milliseconds(500), scheduler: MainScheduler.instance).distinctUntilChanged().bind(to: this._viewModel.input.onDarkModeSwitched).disposed(by: cell.disposeBag)
+                    cell.switchButton.rx.isOn.bind(to: this._viewModel.input.onDarkModeSwitched).disposed(by: cell.disposeBag)
                     return cell
                 }
                 break

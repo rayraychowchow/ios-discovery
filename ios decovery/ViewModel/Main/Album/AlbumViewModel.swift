@@ -22,6 +22,7 @@ class AlbumViewModel: CommonViewModel {
     
     fileprivate let onTestButtonTapped = PublishSubject<Void>()
     fileprivate let onReload = PublishSubject<Void>()
+    fileprivate let onBookmarkButtonTapped = PublishSubject<Int>()
     
     fileprivate let iTunesData = BehaviorRelay<[iTunesCollection]>(value: [])
     
@@ -38,6 +39,9 @@ class AlbumViewModel: CommonViewModel {
             }.subscribe(),
             onReload.withUnretained(self).do(onNext: { this, _ in
                 this.getITunesCollectionResponse()
+            }).subscribe(),
+            onBookmarkButtonTapped.withUnretained(self).do(onNext: { this, index in
+                print(index)
             }).subscribe()
         ])
     }
@@ -57,6 +61,10 @@ extension ViewModelInput where ViewModel: AlbumViewModel {
     var onReload: AnyObserver<Void> {
         base.onReload.asObserver()
     }
+    
+    var onBookmarkButtonTapped: AnyObserver<Int> {
+        base.onBookmarkButtonTapped.asObserver()
+    }
 }
 
 extension ViewModelOutput where ViewModel: AlbumViewModel {    
@@ -66,5 +74,9 @@ extension ViewModelOutput where ViewModel: AlbumViewModel {
     
     var tabbarTitle: Driver<String> {
         base.stringProvider.stringObservable(forKey: "main_view_bottom_navigation_item_title_albums").asDriver(onErrorJustReturn: "")
+    }
+    
+    var iTunesData: Observable<[iTunesCollection]> {
+        base.iTunesData.asObservable()
     }
 }

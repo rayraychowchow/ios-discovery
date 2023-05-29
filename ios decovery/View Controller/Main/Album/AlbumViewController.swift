@@ -8,6 +8,7 @@
 import Foundation
 import UIKit
 import RxSwift
+import RxCocoa
 import Then
 import TinyConstraints
 
@@ -16,7 +17,7 @@ class AlbumViewController: UIViewController {
     private let _viewModel: ViewModel
     private let disposeBag = DisposeBag()
     
-    private let testButton = UIButton()
+    private let tableView = UITableView()
     
     init(viewModel: ViewModel) {
         _viewModel = viewModel
@@ -42,24 +43,33 @@ class AlbumViewController: UIViewController {
     }
     
     func setupUI() {
-        view.backgroundColor = .red
-        view.addSubview(testButton)
+        view.backgroundColor = .white
         
-        testButton.do {
-            $0.setTitle("show details", for: .normal)
-            $0.setTitleColor(.black, for: .normal)
-            $0.centerInSuperview()
+        view.addSubview(tableView)
+        tableView.do {
+            $0.backgroundColor = .white
+            $0.edgesToSuperview()
+            $0.rowHeight = UITableView.automaticDimension
+            $0.estimatedRowHeight = 66
         }
+        
+        tableView.register(AlbumResultTableViewCell.self, forCellReuseIdentifier: AlbumResultTableViewCell.reuseId)
     }
     
     func bindViewModel() {
         disposeBag.insert([
-            testButton.rx.tap.bind(to: _viewModel.input.onTestButtonTapped),
+            _viewModel.output.iTunesData.bind(to: tableView.rx.items) { [weak self] tableView, index, item in
+                guard let this = self else { return UITableViewCell() }
+                if let cell = tableView.dequeueReusableCell(withIdentifier: AlbumResultTableViewCell.reuseId) as? AlbumResultTableViewCell {
+                    cell.setupCell(ituneCollection: item)
+                    cell.bookmarkButton.rx.tap.map({ _ in index }).bind(to: this._viewModel.input.onBookmarkButtonTapped).disposed(by: cell.disposeBag)
+                    return cell
+                }
+                    
+                return UITableViewCell()
+            },
             rx.viewWillAppear.take(1).bind(to: _viewModel.input.onReload),
             _viewModel.output.navigationTitle.drive(rx.title)
         ])
-        
-            
-        
     }
 }

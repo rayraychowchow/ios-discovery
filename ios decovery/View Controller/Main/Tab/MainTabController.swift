@@ -35,8 +35,9 @@ class MainTabController : UITabBarController {
         UITabBar.appearance().backgroundColor = UIColor.white
         
         let appearance = tabBar.standardAppearance
-                appearance.stackedLayoutAppearance.normal.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.gray]
-                appearance.stackedLayoutAppearance.normal.iconColor = UIColor.gray
+        appearance.configureWithTransparentBackground()
+        appearance.stackedLayoutAppearance.normal.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.gray]
+        appearance.stackedLayoutAppearance.normal.iconColor = UIColor.gray
         tabBar.standardAppearance = appearance
         
         

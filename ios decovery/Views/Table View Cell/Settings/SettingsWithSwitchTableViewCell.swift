@@ -20,14 +20,14 @@ class SettingsWithSwitchTableViewCell: BaseTableViewCell, CustomCellable {
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
-        addSubview(titleLabel)
+        contentView.addSubview(titleLabel)
         titleLabel.do { label in
             label.centerYToSuperview()
             label.leftToSuperview(offset: 8)
             label.textColor = .black
         }
         
-        addSubview(switchButton)
+        contentView.addSubview(switchButton)
         switchButton.do { switchBtn in
             switchBtn.centerYToSuperview()
             switchBtn.rightToSuperview(offset: -8)

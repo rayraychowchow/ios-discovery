@@ -16,6 +16,7 @@ class SettingsViewModel: CommonViewModel {
     fileprivate let stringProvider: StringProvider
     fileprivate let userDefaultsStore: UserDefaultsStore
     fileprivate let _onLanguageButtonTapped = PublishSubject<Void>()
+    fileprivate let _onDarkModeSwitched = PublishSubject<Bool>()
     fileprivate let languageCoordinatorType: LanguageCoordinatorType
     fileprivate let disposeBag = DisposeBag()
     fileprivate let onReload = PublishSubject<Void>()
@@ -28,17 +29,24 @@ class SettingsViewModel: CommonViewModel {
         self.languageCoordinatorType = languageCoordinatorType
         
         disposeBag.insert([
-            _onLanguageButtonTapped.withUnretained(self).do { this, _ in
+            _onLanguageButtonTapped.withUnretained(self).do(onNext: { this, _ in
                 this.languageCoordinatorType.changeLanguage()
-            }.subscribe(),
+                this.onReload.onNext(())
+            }).subscribe(),
             onReload.withUnretained(self).do(onNext: { this, _ in
                 this.getSettings()
+            }).subscribe(),
+            _onDarkModeSwitched.withUnretained(self).do(onNext: { this, value in
+                
+            }).subscribe(),
+            stringProvider.onLanguageChangeCompleted.withUnretained(self).do(onNext: { this, language in
+                this.getSettings(language: language)
             }).subscribe()
         ])
     }
     
-    private func getSettings() {
-        settings.accept([AppSettings.language(model: LanguageSetting(currentLanguage: Language.en, title: "ENG")), AppSettings.darkMode(model: DarkModeSetting(isDarkMode: true, title: "dark mode"))])
+    private func getSettings(language: Language? = nil) {
+        settings.accept([AppSettings.language(model: LanguageSetting(currentLanguage: language ?? .en, title: stringProvider.getString(forKey: "current_language"))), AppSettings.darkMode(model: DarkModeSetting(isDarkMode: true, title: stringProvider.getString(forKey: "settings_view_dark_mode")))])
     }
 }
 //rx.viewWillAppear.take(1).mapAsVoid().bind(to: _viewModel.input.onReload),
@@ -49,6 +57,10 @@ extension ViewModelInput where ViewModel: SettingsViewModel {
     
     var onLanguageButtonTapped: AnyObserver<Void> {
         base._onLanguageButtonTapped.asObserver()
+    }
+    
+    var onDarkModeSwitched: AnyObserver<Bool> {
+        base._onDarkModeSwitched.asObserver()
     }
 }
 

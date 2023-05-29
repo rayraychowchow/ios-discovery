@@ -20,6 +20,7 @@ class StringProvider {
     private let disposeBag = DisposeBag()
     private let translations = BehaviorSubject<[String: String]>(value: [:])
     private let onChangeLanguage:Observable<Language>
+    let onLanguageChangeCompleted = PublishSubject<Language>()
 
     
     init(onChangeLanguage: Observable<Language>) {
@@ -42,16 +43,17 @@ class StringProvider {
     
     private func getLanguage(language: Language) -> Single<[String: String]> {
         let url = getTranslationFileUrl(for: language)
-        return Single<[String: String]>.create(subscribe: { observer in
+        return Single<[String: String]>.create(subscribe: { [weak self] observer in
             if let fileUrl = url {
                 let translations = (try? Data(contentsOf: fileUrl))
                     .flatMap({
                         (try? JSONSerialization.jsonObject(with: $0, options: [])) as? [String: String]
                     })
                 observer(.success(translations ?? [:]))
+                self?.onLanguageChangeCompleted.onNext(language)
             } else { observer(.success([:]))
+                self?.onLanguageChangeCompleted.onNext(language)
             }
-            
             return Disposables.create()
         })
         

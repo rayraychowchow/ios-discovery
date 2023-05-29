@@ -56,7 +56,8 @@ class SettingsViewController: UIViewController {
     }
     
     func bindViewModel() {
-        _viewModel.output.data.bind(to: tableView.rx.items) { tableview, index, appSetting in
+        _viewModel.output.data.bind(to: tableView.rx.items) { [weak self] tableview, index, appSetting in
+            guard let this = self else { return UITableViewCell() }
             switch (appSetting) {
             case .language(let model):
                 if let cell = tableview.dequeueReusableCell(withIdentifier: SettingsTableViewCell.reuseId) as? SettingsTableViewCell {
@@ -67,12 +68,20 @@ class SettingsViewController: UIViewController {
             case .darkMode(let model):
                 if let cell = tableview.dequeueReusableCell(withIdentifier: SettingsWithSwitchTableViewCell.reuseId) as? SettingsWithSwitchTableViewCell {
                     cell.setupCell(darkModeSetting: model)
+                    cell.switchButton.rx.isOn.debounce(RxTimeInterval.milliseconds(500), scheduler: MainScheduler.instance).distinctUntilChanged().bind(to: this._viewModel.input.onDarkModeSwitched).disposed(by: cell.disposeBag)
                     return cell
                 }
                 break
             }
             return UITableViewCell()
         }.disposed(by: disposeBag)
+        
+        tableView.rx.itemSelected.withUnretained(self).do { this, indexPath in
+            this.tableView.deselectRow(at: indexPath, animated: true)
+            if indexPath.row == 0 {
+                this._viewModel.input.onLanguageButtonTapped.onNext(())
+            }
+        }.subscribe().disposed(by: disposeBag)
   
         rx.viewWillAppear.take(1).bind(to: _viewModel.input.onReload).disposed(by: disposeBag)
     }

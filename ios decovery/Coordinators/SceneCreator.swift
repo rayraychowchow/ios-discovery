@@ -51,7 +51,7 @@ class SceneCreator {
     private func getViewControllerForMainTab(_ scene: MainTabScene) -> ResultType {
         switch (scene) {
         case .album:
-            let viewModel = AlbumViewModel(albumCoordinatorType: parent, stringProvider: stringProvider, iTunesSearchAPIType: networkService, localDatabaseService: localDatabaseService)
+            let viewModel = AlbumViewModel(albumCoordinatorType: parent, stringProvider: stringProvider, iTunesSearchAPIType: networkService, localDatabaseITunesCollectionType: localDatabaseService)
             let albumVC = AlbumViewController(viewModel: viewModel)
             let albumWithNavVC = embedWithUINavigationController(viewController: albumVC)
             albumVC.setupTabBar()

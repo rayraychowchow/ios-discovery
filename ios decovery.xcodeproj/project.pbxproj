@@ -62,6 +62,10 @@
 		99ACF2772A24649600C953FF /* ITunesSearchAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99ACF2762A24649600C953FF /* ITunesSearchAPI.swift */; };
 		99ACF27A2A246A9B00C953FF /* NetworkService+ITunesSearchAPIType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99ACF2792A246A9B00C953FF /* NetworkService+ITunesSearchAPIType.swift */; };
 		99ACF27D2A2489AF00C953FF /* AlbumResultTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99ACF27C2A2489AF00C953FF /* AlbumResultTableViewCell.swift */; };
+		99EBEC532A24A66F004AB0DD /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 99EBEC522A24A66F004AB0DD /* RealmSwift */; };
+		99EBEC552A24A881004AB0DD /* RealmManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99EBEC542A24A881004AB0DD /* RealmManager.swift */; };
+		99EBEC582A24AD4B004AB0DD /* LocalDatabaseService+BookmarkITunesCollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99EBEC572A24AD4B004AB0DD /* LocalDatabaseService+BookmarkITunesCollection.swift */; };
+		99EBEC5B2A24ADE9004AB0DD /* LocalDatabaseITunesCollectionType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99EBEC5A2A24ADE9004AB0DD /* LocalDatabaseITunesCollectionType.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -114,6 +118,9 @@
 		99ACF2762A24649600C953FF /* ITunesSearchAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ITunesSearchAPI.swift; sourceTree = "<group>"; };
 		99ACF2792A246A9B00C953FF /* NetworkService+ITunesSearchAPIType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NetworkService+ITunesSearchAPIType.swift"; sourceTree = "<group>"; };
 		99ACF27C2A2489AF00C953FF /* AlbumResultTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumResultTableViewCell.swift; sourceTree = "<group>"; };
+		99EBEC542A24A881004AB0DD /* RealmManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmManager.swift; sourceTree = "<group>"; };
+		99EBEC572A24AD4B004AB0DD /* LocalDatabaseService+BookmarkITunesCollection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "LocalDatabaseService+BookmarkITunesCollection.swift"; sourceTree = "<group>"; };
+		99EBEC5A2A24ADE9004AB0DD /* LocalDatabaseITunesCollectionType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalDatabaseITunesCollectionType.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -124,6 +131,7 @@
 				99ACF1EA2A1C9DE700C953FF /* RxRelay in Frameworks */,
 				99ACF1E82A1C9DE700C953FF /* RxCocoa in Frameworks */,
 				99ACF2692A2459D100C953FF /* SwiftyJSON in Frameworks */,
+				99EBEC532A24A66F004AB0DD /* RealmSwift in Frameworks */,
 				99ACF1EF2A1C9DF700C953FF /* TinyConstraints in Frameworks */,
 				99ACF2412A1F3CFA00C953FF /* Then in Frameworks */,
 				99ACF1F22A1C9ED400C953FF /* Alamofire in Frameworks */,
@@ -320,6 +328,7 @@
 		99ACF2262A1DB3DC00C953FF /* DataModel */ = {
 			isa = PBXGroup;
 			children = (
+				99EBEC592A24ADC2004AB0DD /* Local Database */,
 				99ACF2742A24647600C953FF /* Network */,
 				99ACF25C2A1F648C00C953FF /* Settings */,
 				99ACF2322A1DECC600C953FF /* Scene */,
@@ -422,6 +431,7 @@
 		99ACF2632A1FB0D200C953FF /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				99EBEC562A24AD2E004AB0DD /* Local Database */,
 				99ACF2782A246A7A00C953FF /* Network */,
 				99ACF2642A1FB0DA00C953FF /* ReactiveX */,
 			);
@@ -440,6 +450,7 @@
 			isa = PBXGroup;
 			children = (
 				99ACF26D2A245A8700C953FF /* NetworkManager.swift */,
+				99EBEC542A24A881004AB0DD /* RealmManager.swift */,
 			);
 			path = Manager;
 			sourceTree = "<group>";
@@ -486,6 +497,22 @@
 			path = Album;
 			sourceTree = "<group>";
 		};
+		99EBEC562A24AD2E004AB0DD /* Local Database */ = {
+			isa = PBXGroup;
+			children = (
+				99EBEC572A24AD4B004AB0DD /* LocalDatabaseService+BookmarkITunesCollection.swift */,
+			);
+			path = "Local Database";
+			sourceTree = "<group>";
+		};
+		99EBEC592A24ADC2004AB0DD /* Local Database */ = {
+			isa = PBXGroup;
+			children = (
+				99EBEC5A2A24ADE9004AB0DD /* LocalDatabaseITunesCollectionType.swift */,
+			);
+			path = "Local Database";
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -511,6 +538,7 @@
 				99ACF1F12A1C9ED400C953FF /* Alamofire */,
 				99ACF2402A1F3CFA00C953FF /* Then */,
 				99ACF2682A2459D100C953FF /* SwiftyJSON */,
+				99EBEC522A24A66F004AB0DD /* RealmSwift */,
 			);
 			productName = "ios decovery";
 			productReference = 99ACF1CD2A1C9B6000C953FF /* ios decovery.app */;
@@ -546,6 +574,7 @@
 				99ACF1F02A1C9ED400C953FF /* XCRemoteSwiftPackageReference "Alamofire" */,
 				99ACF23F2A1F3CFA00C953FF /* XCRemoteSwiftPackageReference "Then" */,
 				99ACF2672A2459D100C953FF /* XCRemoteSwiftPackageReference "SwiftyJSON" */,
+				99EBEC512A24A66F004AB0DD /* XCRemoteSwiftPackageReference "realm-swift" */,
 			);
 			productRefGroup = 99ACF1CE2A1C9B6000C953FF /* Products */;
 			projectDirPath = "";
@@ -582,6 +611,7 @@
 				99ACF2072A1CAA6D00C953FF /* Coordinator.swift in Sources */,
 				99ACF2002A1CAA2B00C953FF /* NetworkService.swift in Sources */,
 				99ACF20E2A1CB21E00C953FF /* SettingsViewController.swift in Sources */,
+				99EBEC5B2A24ADE9004AB0DD /* LocalDatabaseITunesCollectionType.swift in Sources */,
 				99ACF22F2A1DD7A800C953FF /* UserDefaultsStore+Localization.swift in Sources */,
 				99ACF2382A1DF0D100C953FF /* MainTabScene.swift in Sources */,
 				99ACF2712A245D3A00C953FF /* ItunesSearchResponse.swift in Sources */,
@@ -598,6 +628,7 @@
 				99ACF2592A1F5FE800C953FF /* BaseTableViewCell.swift in Sources */,
 				99ACF2202A1CBCD800C953FF /* SceneCreator.swift in Sources */,
 				99ACF2432A1F3F1D00C953FF /* LanguageCoordinatorType.swift in Sources */,
+				99EBEC582A24AD4B004AB0DD /* LocalDatabaseService+BookmarkITunesCollection.swift in Sources */,
 				99ACF24A2A1F4C2600C953FF /* DetailsViewModel.swift in Sources */,
 				99ACF1D12A1C9B6000C953FF /* AppDelegate.swift in Sources */,
 				99ACF23B2A1DFC5700C953FF /* AlbumCoordinatorType.swift in Sources */,
@@ -606,6 +637,7 @@
 				99ACF21C2A1CBA1A00C953FF /* ViewModelType.swift in Sources */,
 				99ACF2772A24649600C953FF /* ITunesSearchAPI.swift in Sources */,
 				99ACF1FD2A1CA55E00C953FF /* MainTabViewModel.swift in Sources */,
+				99EBEC552A24A881004AB0DD /* RealmManager.swift in Sources */,
 				99ACF27A2A246A9B00C953FF /* NetworkService+ITunesSearchAPIType.swift in Sources */,
 				99ACF2172A1CB28E00C953FF /* BookmarkViewModel.swift in Sources */,
 				99ACF26B2A245A4000C953FF /* Mappable.swift in Sources */,
@@ -869,6 +901,14 @@
 				minimumVersion = 5.0.0;
 			};
 		};
+		99EBEC512A24A66F004AB0DD /* XCRemoteSwiftPackageReference "realm-swift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/realm/realm-swift";
+			requirement = {
+				branch = master;
+				kind = branch;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -911,6 +951,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 99ACF2672A2459D100C953FF /* XCRemoteSwiftPackageReference "SwiftyJSON" */;
 			productName = SwiftyJSON;
+		};
+		99EBEC522A24A66F004AB0DD /* RealmSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 99EBEC512A24A66F004AB0DD /* XCRemoteSwiftPackageReference "realm-swift" */;
+			productName = RealmSwift;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

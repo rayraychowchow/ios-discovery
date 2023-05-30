@@ -45,9 +45,9 @@ class AlbumResultTableViewCell: BaseTableViewCell, CustomCellable {
         }
     }
     
-    func setupCell(ituneCollection: iTunesCollection) {
+    func setupCell(ituneCollection: iTunesCollection, isBookmarked: Bool) {
         titleLabel.text = ituneCollection.collectionName ?? ituneCollection.artistName ?? ""
-        bookmarkButton.setImage((ituneCollection.bookmarked ?? false) ? UIImage(named: "bookmarked") : UIImage(named: "bookmark"), for: .normal)
+        bookmarkButton.setImage(isBookmarked ? UIImage(named: "bookmarked") : UIImage(named: "bookmark"), for: .normal)
     }
     
     override func prepareForReuse() {

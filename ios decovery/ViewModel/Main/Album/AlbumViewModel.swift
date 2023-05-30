@@ -17,7 +17,7 @@ class AlbumViewModel: CommonViewModel {
     
     fileprivate let stringProvider: StringProvider
     fileprivate let iTunesSearchAPIType: ITunesSearchAPIType
-    fileprivate let localDatabaseService: LocalDatabaseService
+    fileprivate let localDatabaseITunesCollectionType: LocalDatabaseITunesCollectionType
     fileprivate let albumCoordinatorType: AlbumCoordinatorType
     
     fileprivate let onTestButtonTapped = PublishSubject<Void>()
@@ -25,13 +25,13 @@ class AlbumViewModel: CommonViewModel {
     fileprivate let onBookmarkButtonTapped = PublishSubject<Int>()
     
     fileprivate let iTunesData = BehaviorRelay<[iTunesCollection]>(value: [])
+    fileprivate let iTunesCollectionLocalData = BehaviorRelay<[iTunesCollectionObject]>(value: [])
     
-    
-    init(albumCoordinatorType: AlbumCoordinatorType, stringProvider: StringProvider, iTunesSearchAPIType: ITunesSearchAPIType, localDatabaseService: LocalDatabaseService) {
+    init(albumCoordinatorType: AlbumCoordinatorType, stringProvider: StringProvider, iTunesSearchAPIType: ITunesSearchAPIType, localDatabaseITunesCollectionType: LocalDatabaseITunesCollectionType) {
         self.albumCoordinatorType = albumCoordinatorType
         self.stringProvider = stringProvider
         self.iTunesSearchAPIType = iTunesSearchAPIType
-        self.localDatabaseService = localDatabaseService
+        self.localDatabaseITunesCollectionType = localDatabaseITunesCollectionType
         
         disposeBag.insert([
             onTestButtonTapped.withUnretained(self).do { this, _ in
@@ -41,15 +41,29 @@ class AlbumViewModel: CommonViewModel {
                 this.getITunesCollectionResponse()
             }).subscribe(),
             onBookmarkButtonTapped.withUnretained(self).do(onNext: { this, index in
-                print(index)
+                let album = this.iTunesData.value[index]
+                if let object = this.iTunesCollectionLocalData.value.first(where: {$0.collectionViewUrl == album.collectionViewUrl}) {
+                    _ = this.localDatabaseITunesCollectionType.removeSavedCollection(object: object)
+                } else {
+                    _ = this.localDatabaseITunesCollectionType.saveITunesCollection(object: iTunesCollectionObject.convertFromITunesCollection(collection: album))
+                }
+                this.getBookmarkedITunesCollectionFromLocal()
             }).subscribe()
         ])
+        getBookmarkedITunesCollectionFromLocal()
+        
     }
     
     private func getITunesCollectionResponse() {
         iTunesSearchAPIType.forITunesSearch(term: "Jack").map {$0.results}.subscribe(with: self) { this, data in
             this.iTunesData.accept(data)
         }.disposed(by: disposeBag)
+    }
+    
+    private func getBookmarkedITunesCollectionFromLocal() {
+        if let array: [iTunesCollectionObject] = localDatabaseITunesCollectionType.getAllSavedITunesCollection()?.compactMap({ $0 }) {
+            iTunesCollectionLocalData.accept(array)
+        }
     }
 }
 
@@ -77,6 +91,12 @@ extension ViewModelOutput where ViewModel: AlbumViewModel {
     }
     
     var iTunesData: Observable<[iTunesCollection]> {
-        base.iTunesData.asObservable()
+        Observable.combineLatest(base.iTunesData, base.iTunesCollectionLocalData).map { $0.0 }.asObservable()
+    }
+    
+    func isAlbumBookmarked(_ iTunesCollection: iTunesCollection) -> Bool {
+        return base.iTunesCollectionLocalData.value.contains { bookmarkedAlbum in
+            bookmarkedAlbum.collectionId == iTunesCollection.collectionId
+        }
     }
 }

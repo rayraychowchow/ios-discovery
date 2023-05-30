@@ -61,7 +61,7 @@ class AlbumViewController: UIViewController {
             _viewModel.output.iTunesData.bind(to: tableView.rx.items) { [weak self] tableView, index, item in
                 guard let this = self else { return UITableViewCell() }
                 if let cell = tableView.dequeueReusableCell(withIdentifier: AlbumResultTableViewCell.reuseId) as? AlbumResultTableViewCell {
-                    cell.setupCell(ituneCollection: item)
+                    cell.setupCell(ituneCollection: item, isBookmarked: this._viewModel.output.isAlbumBookmarked(item))
                     cell.bookmarkButton.rx.tap.map({ _ in index }).bind(to: this._viewModel.input.onBookmarkButtonTapped).disposed(by: cell.disposeBag)
                     return cell
                 }

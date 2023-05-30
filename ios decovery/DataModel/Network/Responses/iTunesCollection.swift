@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import RealmSwift
 
 struct iTunesCollection: Codable {
     
@@ -29,10 +30,9 @@ struct iTunesCollection: Codable {
     var currency: String? = ""
     var releaseDate: Date? = Date() //"2005-03-01T08:00:00Z"
     var primaryGenreName: String? = ""
-    var bookmarked: Bool? = false
 }
 
-class iTunesCollectionObject {
+class iTunesCollectionObject: Object {
     @objc dynamic var wrapperType: String = ""
     @objc dynamic var collectionType: String = ""
     @objc dynamic var artistId: Int = 0
@@ -54,29 +54,29 @@ class iTunesCollectionObject {
     @objc dynamic var releaseDate: Date = Date() //"2005-03-01T08:00:00Z"
     @objc dynamic var primaryGenreName: String = ""
     
-//    static func convertFromITunesCollection(collection: iTunesCollection) -> iTunesCollectionObject {
-//        let object = iTunesCollectionObject()
-//        object.wrapperType = collection.wrapperType
-//        object.collectionType = collection.collectionType
-//        object.artistId = collection.artistId
-//        object.collectionId = collection.collectionId
-//        object.amgArtistId = collection.amgArtistId
-//        object.artistName = collection.artistName
-//        object.collectionName = collection.collectionName
-//        object.collectionCensoredName = collection.collectionCensoredName
-//        object.artistViewUrl = collection.artistViewUrl
-//        object.collectionViewUrl = collection.collectionViewUrl
-//        object.artworkUrl60 = collection.artworkUrl60
-//        object.artworkUrl100 = collection.artworkUrl100
-//        object.collectionPrice = collection.collectionPrice
-//        object.collectionExplicitness = collection.collectionExplicitness
-//        object.trackCount = collection.trackCount
-//        object.copyright = collection.copyright
-//        object.country = collection.country
-//        object.currency = collection.currency
-//        object.releaseDate = collection.releaseDate
-//        object.primaryGenreName = collection.primaryGenreName
-//        return object
-//    }
+    static func convertFromITunesCollection(collection: iTunesCollection) -> iTunesCollectionObject {
+        let object = iTunesCollectionObject()
+        object.wrapperType = collection.wrapperType ?? ""
+        object.collectionType = collection.collectionType ?? ""
+        object.artistId = collection.artistId ?? 0
+        object.collectionId = collection.collectionId ?? 0
+        object.amgArtistId = collection.amgArtistId ?? 0
+        object.artistName = collection.artistName ?? ""
+        object.collectionName = collection.collectionName ?? ""
+        object.collectionCensoredName = collection.collectionCensoredName ?? ""
+        object.artistViewUrl = collection.artistViewUrl ?? ""
+        object.collectionViewUrl = collection.collectionViewUrl ?? ""
+        object.artworkUrl60 = collection.artworkUrl60 ?? ""
+        object.artworkUrl100 = collection.artworkUrl100 ?? ""
+        object.collectionPrice = collection.collectionPrice ?? 0
+        object.collectionExplicitness = collection.collectionExplicitness ?? ""
+        object.trackCount = collection.trackCount ?? 0
+        object.copyright = collection.copyright ?? ""
+        object.country = collection.country ?? ""
+        object.currency = collection.currency ?? ""
+        object.releaseDate = collection.releaseDate ?? Date()
+        object.primaryGenreName = collection.primaryGenreName ?? ""
+        return object
+    }
 
 }

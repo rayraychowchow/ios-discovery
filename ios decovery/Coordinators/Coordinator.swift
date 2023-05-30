@@ -39,6 +39,11 @@ class Coordinator: AlbumCoordinatorType, LanguageCoordinatorType, ModalViewCorrd
         _rootViewController = sceneCreator.forMainTabController() ?? UIViewController()
     }
     
+    func setWindow(window: UIWindow?) {
+        self.window = window
+        changeToDarkMode(UserDefaultsStore.shared.isDarkMode ?? false)
+    }
+    
     func dismissView() {
         _rootViewController.dismiss(animated: true)
     }

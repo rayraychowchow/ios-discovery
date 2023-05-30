@@ -19,16 +19,13 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         let coordinator = Coordinator()
         coordinator.onAppStart()
         
-       
-        
         guard let windowScene = (scene as? UIWindowScene) else { return }
                 window = UIWindow(frame: windowScene.coordinateSpace.bounds)
                 window?.windowScene = windowScene
         window?.rootViewController = coordinator.rootViewController
                 window?.makeKeyAndVisible()
         
-        coordinator.window = window
-        coordinator.changeToDarkMode(UserDefaultsStore.shared.isDarkMode ?? false)
+        coordinator.setWindow(window: window)
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {

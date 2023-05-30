@@ -9,5 +9,6 @@
     "settings_view_dark_mode": "Dark Mode",
     "details_view_do_you_like_it_and_ask_for_bookmark": "Do you like it?",
     "details_view_bookmark_now": "Bookmark now!!",
-    "general_error": "Error"
+    "general_error": "Error",
+    "general_close": "Close"
 }

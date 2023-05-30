@@ -60,6 +60,7 @@ class AlbumViewController: UIViewController, UISearchBarDelegate {
             $0.edgesToSuperview(excluding: .top)
             $0.rowHeight = UITableView.automaticDimension
             $0.estimatedRowHeight = 66
+            $0.keyboardDismissMode = .onDrag
         }
         
         tableView.register(AlbumResultTableViewCell.self, forCellReuseIdentifier: AlbumResultTableViewCell.reuseId)
@@ -78,6 +79,7 @@ class AlbumViewController: UIViewController, UISearchBarDelegate {
                     
                 return UITableViewCell()
             },
+            tableView.rx.itemSelected.map({$0.row}).bind(to: _viewModel.input.onCollectionTapped),
             rx.viewWillAppear.bind(to: _viewModel.input.onReload),
             _viewModel.output.navigationTitle.drive(rx.title),
             searchBar.rx.text.orEmpty.debounce(RxTimeInterval.microseconds(300), scheduler: MainScheduler.instance).distinctUntilChanged().bind(to: _viewModel.input.onSearchTextChanged),

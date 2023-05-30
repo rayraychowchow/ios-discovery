@@ -67,6 +67,8 @@
 		99EBEC582A24AD4B004AB0DD /* LocalDatabaseService+BookmarkITunesCollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99EBEC572A24AD4B004AB0DD /* LocalDatabaseService+BookmarkITunesCollection.swift */; };
 		99EBEC5B2A24ADE9004AB0DD /* LocalDatabaseITunesCollectionType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99EBEC5A2A24ADE9004AB0DD /* LocalDatabaseITunesCollectionType.swift */; };
 		99EBEC5E2A25B9E9004AB0DD /* BookmarkTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99EBEC5D2A25B9E9004AB0DD /* BookmarkTableViewCell.swift */; };
+		99EBEC612A25E07D004AB0DD /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 99EBEC602A25E07D004AB0DD /* Kingfisher */; };
+		99EBEC632A25EC6B004AB0DD /* ImageProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99EBEC622A25EC6B004AB0DD /* ImageProvider.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -123,6 +125,7 @@
 		99EBEC572A24AD4B004AB0DD /* LocalDatabaseService+BookmarkITunesCollection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "LocalDatabaseService+BookmarkITunesCollection.swift"; sourceTree = "<group>"; };
 		99EBEC5A2A24ADE9004AB0DD /* LocalDatabaseITunesCollectionType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalDatabaseITunesCollectionType.swift; sourceTree = "<group>"; };
 		99EBEC5D2A25B9E9004AB0DD /* BookmarkTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkTableViewCell.swift; sourceTree = "<group>"; };
+		99EBEC622A25EC6B004AB0DD /* ImageProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageProvider.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -134,6 +137,7 @@
 				99ACF1E82A1C9DE700C953FF /* RxCocoa in Frameworks */,
 				99ACF2692A2459D100C953FF /* SwiftyJSON in Frameworks */,
 				99EBEC532A24A66F004AB0DD /* RealmSwift in Frameworks */,
+				99EBEC612A25E07D004AB0DD /* Kingfisher in Frameworks */,
 				99ACF1EF2A1C9DF700C953FF /* TinyConstraints in Frameworks */,
 				99ACF2412A1F3CFA00C953FF /* Then in Frameworks */,
 				99ACF1F22A1C9ED400C953FF /* Alamofire in Frameworks */,
@@ -323,6 +327,7 @@
 			children = (
 				99ACF2222A1CC7C900C953FF /* StringProvider.swift */,
 				99ACF2242A1CC80700C953FF /* StringProviderType.swift */,
+				99EBEC622A25EC6B004AB0DD /* ImageProvider.swift */,
 			);
 			path = Provider;
 			sourceTree = "<group>";
@@ -550,6 +555,7 @@
 				99ACF2402A1F3CFA00C953FF /* Then */,
 				99ACF2682A2459D100C953FF /* SwiftyJSON */,
 				99EBEC522A24A66F004AB0DD /* RealmSwift */,
+				99EBEC602A25E07D004AB0DD /* Kingfisher */,
 			);
 			productName = "ios decovery";
 			productReference = 99ACF1CD2A1C9B6000C953FF /* ios decovery.app */;
@@ -586,6 +592,7 @@
 				99ACF23F2A1F3CFA00C953FF /* XCRemoteSwiftPackageReference "Then" */,
 				99ACF2672A2459D100C953FF /* XCRemoteSwiftPackageReference "SwiftyJSON" */,
 				99EBEC512A24A66F004AB0DD /* XCRemoteSwiftPackageReference "realm-swift" */,
+				99EBEC5F2A25E07D004AB0DD /* XCRemoteSwiftPackageReference "Kingfisher" */,
 			);
 			productRefGroup = 99ACF1CE2A1C9B6000C953FF /* Products */;
 			projectDirPath = "";
@@ -640,6 +647,7 @@
 				99ACF2202A1CBCD800C953FF /* SceneCreator.swift in Sources */,
 				99ACF2432A1F3F1D00C953FF /* LanguageCoordinatorType.swift in Sources */,
 				99EBEC582A24AD4B004AB0DD /* LocalDatabaseService+BookmarkITunesCollection.swift in Sources */,
+				99EBEC632A25EC6B004AB0DD /* ImageProvider.swift in Sources */,
 				99ACF24A2A1F4C2600C953FF /* DetailsViewModel.swift in Sources */,
 				99ACF1D12A1C9B6000C953FF /* AppDelegate.swift in Sources */,
 				99ACF23B2A1DFC5700C953FF /* AlbumCoordinatorType.swift in Sources */,
@@ -919,6 +927,14 @@
 				kind = branch;
 			};
 		};
+		99EBEC5F2A25E07D004AB0DD /* XCRemoteSwiftPackageReference "Kingfisher" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/onevcat/Kingfisher";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 7.0.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -966,6 +982,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 99EBEC512A24A66F004AB0DD /* XCRemoteSwiftPackageReference "realm-swift" */;
 			productName = RealmSwift;
+		};
+		99EBEC602A25E07D004AB0DD /* Kingfisher */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 99EBEC5F2A25E07D004AB0DD /* XCRemoteSwiftPackageReference "Kingfisher" */;
+			productName = Kingfisher;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

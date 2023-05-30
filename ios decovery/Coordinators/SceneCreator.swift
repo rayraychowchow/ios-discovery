@@ -18,6 +18,7 @@ class SceneCreator {
     var userDefaultsStore: UserDefaultsStore { parent.userDefaultsStore }
     var localDatabaseService: LocalDatabaseService { parent.localDatabaseService }
     var stringProvider: StringProvider { parent.stringProvider }
+    var imageProvider: ImageProvider { parent.imageProvider }
     var onChangeLanguageStream: PublishSubject<Language> { parent.onChangeLanguageStream }
     
     init(coordinator: Coordinator) {
@@ -71,7 +72,7 @@ class SceneCreator {
         }
     }
     
-    func getDetailsViewController() -> ResultType {
-        return embedWithUINavigationController(viewController: DetailsViewController(viewModel: DetailsViewModel(modalViewCorrdinatorType: parent, stringProvider: stringProvider)))
+    func getDetailsViewController(collection: iTunesCollection, isBookMarked: Bool) -> ResultType {
+        return embedWithUINavigationController(viewController: DetailsViewController(viewModel: DetailsViewModel(modalViewCorrdinatorType: parent, stringProvider: stringProvider, imageProvider: imageProvider, localDatabaseITunesCollectionType: localDatabaseService, collection: collection, isBookmarked: isBookMarked)))
     }
 }

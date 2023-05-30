@@ -20,13 +20,13 @@ class AlbumViewModel: CommonViewModel {
     fileprivate let localDatabaseITunesCollectionType: LocalDatabaseITunesCollectionType
     fileprivate let albumCoordinatorType: AlbumCoordinatorType
     
-    fileprivate let onTestButtonTapped = PublishSubject<Void>()
-    fileprivate let onReload = PublishSubject<Void>()
-    fileprivate let onBookmarkButtonTapped = PublishSubject<Int>()
+    fileprivate let _onCollectionTapped = PublishSubject<Int>()
+    fileprivate let _onReload = PublishSubject<Void>()
+    fileprivate let _onBookmarkButtonTapped = PublishSubject<Int>()
     fileprivate let _onSearchTextChanged = PublishSubject<String>()
     
-    fileprivate let iTunesData = BehaviorRelay<[iTunesCollection]>(value: [])
-    fileprivate let iTunesCollectionLocalData = BehaviorRelay<[iTunesCollectionObject]>(value: [])
+    fileprivate let _iTunesData = BehaviorRelay<[iTunesCollection]>(value: [])
+    fileprivate let _iTunesCollectionLocalData = BehaviorRelay<[iTunesCollectionObject]>(value: [])
     
     init(albumCoordinatorType: AlbumCoordinatorType, stringProvider: StringProvider, iTunesSearchAPIType: ITunesSearchAPIType, localDatabaseITunesCollectionType: LocalDatabaseITunesCollectionType) {
         self.albumCoordinatorType = albumCoordinatorType
@@ -35,18 +35,19 @@ class AlbumViewModel: CommonViewModel {
         self.localDatabaseITunesCollectionType = localDatabaseITunesCollectionType
         
         disposeBag.insert([
-            onTestButtonTapped.withUnretained(self).do { this, _ in
-                this.albumCoordinatorType.presentAlbumDetailsView()
+            _onCollectionTapped.withUnretained(self).do { this, index in
+                let collection = this._iTunesData.value[index]
+                this.albumCoordinatorType.presentAlbumDetailsView(collection: collection, isBookMarked:  this._iTunesCollectionLocalData.value.contains(where: { $0.collectionViewUrl == collection.collectionViewUrl }))
             }.subscribe(),
-            onReload.withUnretained(self).do(onNext: { this, _ in
+            _onReload.withUnretained(self).do(onNext: { this, _ in
                 this.getBookmarkedITunesCollectionFromLocal()
             }).subscribe(),
-            onBookmarkButtonTapped.withUnretained(self).do(onNext: { this, index in
-                let album = this.iTunesData.value[index]
-                if let object = this.iTunesCollectionLocalData.value.first(where: {$0.collectionViewUrl == album.collectionViewUrl}) {
+            _onBookmarkButtonTapped.withUnretained(self).do(onNext: { this, index in
+                let collection = this._iTunesData.value[index]
+                if let object = this._iTunesCollectionLocalData.value.first(where: {$0.collectionViewUrl == collection.collectionViewUrl}) {
                     _ = this.localDatabaseITunesCollectionType.removeSavedCollection(object: object)
                 } else {
-                    _ = this.localDatabaseITunesCollectionType.saveITunesCollection(object: iTunesCollectionObject.convertFromITunesCollection(collection: album))
+                    _ = this.localDatabaseITunesCollectionType.saveITunesCollection(object: iTunesCollectionObject.convertFromITunesCollection(collection: collection))
                 }
                 this.getBookmarkedITunesCollectionFromLocal()
             }).subscribe(),
@@ -54,7 +55,7 @@ class AlbumViewModel: CommonViewModel {
                 if !searchKey.isEmpty {
                     this.getITunesCollectionResponse(term: searchKey)
                 } else {
-                    this.iTunesData.accept([])
+                    this._iTunesData.accept([])
                 }
             }).subscribe()
         ])
@@ -64,28 +65,28 @@ class AlbumViewModel: CommonViewModel {
     
     private func getITunesCollectionResponse(term: String) {
         iTunesSearchAPIType.forITunesSearch(term: term).map {$0.results}.subscribe(with: self) { this, data in
-            this.iTunesData.accept(data)
+            this._iTunesData.accept(data)
         }.disposed(by: disposeBag)
     }
     
     private func getBookmarkedITunesCollectionFromLocal() {
         if let array: [iTunesCollectionObject] = localDatabaseITunesCollectionType.getAllSavedITunesCollection()?.compactMap({ $0 }) {
-            iTunesCollectionLocalData.accept(array)
+            _iTunesCollectionLocalData.accept(array)
         }
     }
 }
 
 extension ViewModelInput where ViewModel: AlbumViewModel {
-    var onTestButtonTapped: AnyObserver<Void> {
-        base.onTestButtonTapped.asObserver()
+    var onCollectionTapped: AnyObserver<Int> {
+        base._onCollectionTapped.asObserver()
     }
     
     var onReload: AnyObserver<Void> {
-        base.onReload.asObserver()
+        base._onReload.asObserver()
     }
     
     var onBookmarkButtonTapped: AnyObserver<Int> {
-        base.onBookmarkButtonTapped.asObserver()
+        base._onBookmarkButtonTapped.asObserver()
     }
     
     var onSearchTextChanged: AnyObserver<String> {
@@ -107,11 +108,11 @@ extension ViewModelOutput where ViewModel: AlbumViewModel {
     }
     
     var iTunesData: Observable<[iTunesCollection]> {
-        Observable.combineLatest(base.iTunesData, base.iTunesCollectionLocalData).map { $0.0 }.asObservable()
+        Observable.combineLatest(base._iTunesData, base._iTunesCollectionLocalData).map { $0.0 }.asObservable()
     }
     
     func isAlbumBookmarked(_ iTunesCollection: iTunesCollection) -> Bool {
-        return base.iTunesCollectionLocalData.value.contains { bookmarkedAlbum in
+        return base._iTunesCollectionLocalData.value.contains { bookmarkedAlbum in
             bookmarkedAlbum.collectionId == iTunesCollection.collectionId
         }
     }

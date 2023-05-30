@@ -8,5 +8,5 @@
 import Foundation
 
 protocol AlbumCoordinatorType {
-    func presentAlbumDetailsView()
+    func presentAlbumDetailsView(collection: iTunesCollection, isBookMarked: Bool)
 }

@@ -16,10 +16,12 @@ class Coordinator: AlbumCoordinatorType, LanguageCoordinatorType, ModalViewCorrd
     let userDefaultsStore = UserDefaultsStore()
     let localDatabaseService = LocalDatabaseService()
     let onChangeLanguageStream = PublishSubject<Language>()
-    let stringProvider:StringProvider
+    let stringProvider: StringProvider
+    let imageProvider: ImageProvider
     
     init() {
         stringProvider = StringProvider(onChangeLanguage: onChangeLanguageStream)
+        imageProvider = ImageProvider()
         let currentLanguage = UserDefaultsStore.shared.currentLanguage ?? Language.en
         onChangeLanguageStream.onNext(currentLanguage)
     }
@@ -39,9 +41,9 @@ class Coordinator: AlbumCoordinatorType, LanguageCoordinatorType, ModalViewCorrd
         _rootViewController.dismiss(animated: true)
     }
     
-    func presentAlbumDetailsView() {
+    func presentAlbumDetailsView(collection: iTunesCollection, isBookMarked: Bool) {
         let sceneCreator = SceneCreator(coordinator: self)
-        guard let detailsVC = sceneCreator.getDetailsViewController() else { return }
+        guard let detailsVC = sceneCreator.getDetailsViewController(collection: collection, isBookMarked: isBookMarked) else { return }
         _rootViewController.present(detailsVC, animated: true)
     }
     

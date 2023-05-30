@@ -11,7 +11,7 @@ import RxCocoa
 
 class StringProvider {
     
-    private static let queueName = "OneApp.StringProvider"
+    private static let queueName = "decovery.StringProvider"
     private static let rxQueueName = "Rx." + queueName
     private lazy var queue = DispatchQueue(label: Self.queueName, qos: .default)
     //    private static let rootDirectoryName = "AppPatch"

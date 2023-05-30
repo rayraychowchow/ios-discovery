@@ -23,6 +23,7 @@ class AlbumViewModel: CommonViewModel {
     fileprivate let onTestButtonTapped = PublishSubject<Void>()
     fileprivate let onReload = PublishSubject<Void>()
     fileprivate let onBookmarkButtonTapped = PublishSubject<Int>()
+    fileprivate let _onSearchTextChanged = PublishSubject<String>()
     
     fileprivate let iTunesData = BehaviorRelay<[iTunesCollection]>(value: [])
     fileprivate let iTunesCollectionLocalData = BehaviorRelay<[iTunesCollectionObject]>(value: [])
@@ -38,7 +39,7 @@ class AlbumViewModel: CommonViewModel {
                 this.albumCoordinatorType.presentAlbumDetailsView()
             }.subscribe(),
             onReload.withUnretained(self).do(onNext: { this, _ in
-                this.getITunesCollectionResponse()
+                this.getBookmarkedITunesCollectionFromLocal()
             }).subscribe(),
             onBookmarkButtonTapped.withUnretained(self).do(onNext: { this, index in
                 let album = this.iTunesData.value[index]
@@ -48,14 +49,21 @@ class AlbumViewModel: CommonViewModel {
                     _ = this.localDatabaseITunesCollectionType.saveITunesCollection(object: iTunesCollectionObject.convertFromITunesCollection(collection: album))
                 }
                 this.getBookmarkedITunesCollectionFromLocal()
+            }).subscribe(),
+            _onSearchTextChanged.withUnretained(self).do(onNext: { this, searchKey in
+                if !searchKey.isEmpty {
+                    this.getITunesCollectionResponse(term: searchKey)
+                } else {
+                    this.iTunesData.accept([])
+                }
             }).subscribe()
         ])
         getBookmarkedITunesCollectionFromLocal()
         
     }
     
-    private func getITunesCollectionResponse() {
-        iTunesSearchAPIType.forITunesSearch(term: "Jack").map {$0.results}.subscribe(with: self) { this, data in
+    private func getITunesCollectionResponse(term: String) {
+        iTunesSearchAPIType.forITunesSearch(term: term).map {$0.results}.subscribe(with: self) { this, data in
             this.iTunesData.accept(data)
         }.disposed(by: disposeBag)
     }
@@ -79,6 +87,10 @@ extension ViewModelInput where ViewModel: AlbumViewModel {
     var onBookmarkButtonTapped: AnyObserver<Int> {
         base.onBookmarkButtonTapped.asObserver()
     }
+    
+    var onSearchTextChanged: AnyObserver<String> {
+        base._onSearchTextChanged.asObserver()
+    }
 }
 
 extension ViewModelOutput where ViewModel: AlbumViewModel {    
@@ -88,6 +100,10 @@ extension ViewModelOutput where ViewModel: AlbumViewModel {
     
     var tabbarTitle: Driver<String> {
         base.stringProvider.stringObservable(forKey: "main_view_bottom_navigation_item_title_albums").asDriver(onErrorJustReturn: "")
+    }
+    
+    var searchTextFieldPlaceHolder: Driver<String> {
+        base.stringProvider.stringObservable(forKey: "album_view_placeholder_search").asDriver(onErrorJustReturn: "")
     }
     
     var iTunesData: Observable<[iTunesCollection]> {

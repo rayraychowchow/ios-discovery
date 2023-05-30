@@ -7,6 +7,7 @@
 
 import Foundation
 import UIKit
+import TinyConstraints
 
 class AlbumResultTableViewCell: BaseTableViewCell, CustomCellable {
     static var reuseId: String = "AlbumResultTableViewCell"
@@ -40,8 +41,6 @@ class AlbumResultTableViewCell: BaseTableViewCell, CustomCellable {
             $0.setImage(UIImage(named: "bookmark"), for: .normal)
             $0.width(48)
             $0.height(48)
-            $0.isEnabled = true
-            $0.isUserInteractionEnabled = true
         }
     }
     

@@ -66,6 +66,7 @@
 		99EBEC552A24A881004AB0DD /* RealmManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99EBEC542A24A881004AB0DD /* RealmManager.swift */; };
 		99EBEC582A24AD4B004AB0DD /* LocalDatabaseService+BookmarkITunesCollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99EBEC572A24AD4B004AB0DD /* LocalDatabaseService+BookmarkITunesCollection.swift */; };
 		99EBEC5B2A24ADE9004AB0DD /* LocalDatabaseITunesCollectionType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99EBEC5A2A24ADE9004AB0DD /* LocalDatabaseITunesCollectionType.swift */; };
+		99EBEC5E2A25B9E9004AB0DD /* BookmarkTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99EBEC5D2A25B9E9004AB0DD /* BookmarkTableViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -121,6 +122,7 @@
 		99EBEC542A24A881004AB0DD /* RealmManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmManager.swift; sourceTree = "<group>"; };
 		99EBEC572A24AD4B004AB0DD /* LocalDatabaseService+BookmarkITunesCollection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "LocalDatabaseService+BookmarkITunesCollection.swift"; sourceTree = "<group>"; };
 		99EBEC5A2A24ADE9004AB0DD /* LocalDatabaseITunesCollectionType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalDatabaseITunesCollectionType.swift; sourceTree = "<group>"; };
+		99EBEC5D2A25B9E9004AB0DD /* BookmarkTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkTableViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -411,6 +413,7 @@
 		99ACF24D2A1F5D0A00C953FF /* Table View Cell */ = {
 			isa = PBXGroup;
 			children = (
+				99EBEC5C2A25B9D9004AB0DD /* Bookmark */,
 				99ACF27B2A24899900C953FF /* Album */,
 				99ACF24C2A1F5CFE00C953FF /* Settings */,
 				99ACF2512A1F5F2500C953FF /* CustomCellable.swift */,
@@ -511,6 +514,14 @@
 				99EBEC5A2A24ADE9004AB0DD /* LocalDatabaseITunesCollectionType.swift */,
 			);
 			path = "Local Database";
+			sourceTree = "<group>";
+		};
+		99EBEC5C2A25B9D9004AB0DD /* Bookmark */ = {
+			isa = PBXGroup;
+			children = (
+				99EBEC5D2A25B9E9004AB0DD /* BookmarkTableViewCell.swift */,
+			);
+			path = Bookmark;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -650,6 +661,7 @@
 				99ACF21A2A1CB29E00C953FF /* SettingsViewModel.swift in Sources */,
 				99ACF2522A1F5F2500C953FF /* CustomCellable.swift in Sources */,
 				99ACF2232A1CC7C900C953FF /* StringProvider.swift in Sources */,
+				99EBEC5E2A25B9E9004AB0DD /* BookmarkTableViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -793,7 +805,6 @@
 				INFOPLIST_FILE = "ios decovery/Info.plist";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -821,7 +832,6 @@
 				INFOPLIST_FILE = "ios decovery/Info.plist";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (

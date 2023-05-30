@@ -12,11 +12,12 @@ import RxCocoa
 import Then
 import TinyConstraints
 
-class AlbumViewController: UIViewController {
+class AlbumViewController: UIViewController, UISearchBarDelegate {
     public typealias ViewModel = AlbumViewModel
     private let _viewModel: ViewModel
     private let disposeBag = DisposeBag()
     
+    private let searchBar = UISearchBar()
     private let tableView = UITableView()
     
     init(viewModel: ViewModel) {
@@ -44,11 +45,19 @@ class AlbumViewController: UIViewController {
     
     func setupUI() {
         view.backgroundColor = .white
-        
+        view.addSubview(searchBar)
         view.addSubview(tableView)
+        
+        searchBar.do {
+            $0.returnKeyType = .done
+            $0.height(48)
+            $0.edgesToSuperview(excluding: .bottom, usingSafeArea: true)
+        }
+
         tableView.do {
             $0.backgroundColor = .white
-            $0.edgesToSuperview()
+            $0.topToBottom(of: searchBar)
+            $0.edgesToSuperview(excluding: .top)
             $0.rowHeight = UITableView.automaticDimension
             $0.estimatedRowHeight = 66
         }
@@ -58,6 +67,7 @@ class AlbumViewController: UIViewController {
     
     func bindViewModel() {
         disposeBag.insert([
+            _viewModel.output.searchTextFieldPlaceHolder.drive(searchBar.rx.placeholder),
             _viewModel.output.iTunesData.bind(to: tableView.rx.items) { [weak self] tableView, index, item in
                 guard let this = self else { return UITableViewCell() }
                 if let cell = tableView.dequeueReusableCell(withIdentifier: AlbumResultTableViewCell.reuseId) as? AlbumResultTableViewCell {
@@ -68,8 +78,14 @@ class AlbumViewController: UIViewController {
                     
                 return UITableViewCell()
             },
-            rx.viewWillAppear.take(1).bind(to: _viewModel.input.onReload),
-            _viewModel.output.navigationTitle.drive(rx.title)
+            rx.viewWillAppear.bind(to: _viewModel.input.onReload),
+            _viewModel.output.navigationTitle.drive(rx.title),
+            searchBar.rx.text.orEmpty.debounce(RxTimeInterval.microseconds(300), scheduler: MainScheduler.instance).distinctUntilChanged().bind(to: _viewModel.input.onSearchTextChanged),
+            searchBar.searchTextField.rx.controlEvent(.editingDidEndOnExit).withUnretained(self).do(onNext: { this, _ in
+                this.searchBar.resignFirstResponder()
+            }).subscribe()
         ])
     }
 }
+
+//searchBar.rx.text.debounce(RxTimeInterval.milliseconds(500), scheduler: MainScheduler.instance).distinctUntilChanged().bind(to: _viewModel.input.onSearchTextChanged)

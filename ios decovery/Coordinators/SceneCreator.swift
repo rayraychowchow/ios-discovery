@@ -57,7 +57,7 @@ class SceneCreator {
             albumVC.setupTabBar()
             return albumWithNavVC
         case .bookmark:
-            let viewModel = BookmarkViewModel(stringProvider: stringProvider, localDatabaseService: localDatabaseService)
+            let viewModel = BookmarkViewModel(stringProvider: stringProvider, localDatabaseITunesCollectionType: localDatabaseService)
             let bookmarkVC = BookmarkViewController(viewModel: viewModel)
             let bookmarkWithNavVC = embedWithUINavigationController(viewController: bookmarkVC)
             bookmarkVC.setupTabBar()

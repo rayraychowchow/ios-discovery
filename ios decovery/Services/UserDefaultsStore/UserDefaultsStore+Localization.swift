@@ -7,7 +7,7 @@
 
 import Foundation
 
-private let currentLanguageKey = "OneApp.CurrentLanguage"
+private let currentLanguageKey = "decovery.CurrentLanguage"
 
 extension UserDefaultsStore {
     var currentLanguage: Language? {

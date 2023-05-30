@@ -9,8 +9,8 @@ import Foundation
 import UIKit
 import RxSwift
 
-class Coordinator: AlbumCoordinatorType, LanguageCoordinatorType, ModalViewCorrdinatorType {
-    
+class Coordinator: AlbumCoordinatorType, LanguageCoordinatorType, ModalViewCorrdinatorType, DarkModeCoordinatorType {
+    var window: UIWindow?
     
     let networkService = NetworkService()
     let userDefaultsStore = UserDefaultsStore()
@@ -18,10 +18,12 @@ class Coordinator: AlbumCoordinatorType, LanguageCoordinatorType, ModalViewCorrd
     let onChangeLanguageStream = PublishSubject<Language>()
     let stringProvider: StringProvider
     let imageProvider: ImageProvider
+    let darkModeProvider: DarkModeProvider
     
     init() {
         stringProvider = StringProvider(onChangeLanguage: onChangeLanguageStream)
         imageProvider = ImageProvider()
+        darkModeProvider = DarkModeProvider()
         let currentLanguage = UserDefaultsStore.shared.currentLanguage ?? Language.en
         onChangeLanguageStream.onNext(currentLanguage)
     }
@@ -54,5 +56,11 @@ class Coordinator: AlbumCoordinatorType, LanguageCoordinatorType, ModalViewCorrd
         } else {
             onChangeLanguageStream.onNext(.en)
         }
+    }
+    
+    func changeToDarkMode(_ toDarkMode: Bool) {
+        window?.overrideUserInterfaceStyle = toDarkMode ? .dark : .light
+        UserDefaultsStore.shared.isDarkMode = toDarkMode
+        darkModeProvider.darkModeStream.accept(toDarkMode)
     }
 }

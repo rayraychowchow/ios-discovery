@@ -23,13 +23,13 @@ class SettingsTableViewCell: BaseTableViewCell, CustomCellable {
         titleLabel.do { label in
             label.centerYToSuperview()
             label.leftToSuperview(offset: 8)
-            label.textColor = .black
+            label.textColor = .label
         }
     }
     
     func setupCell(languageSetting: LanguageSetting) {
         titleLabel.text = languageSetting.title
-        backgroundColor = .white
+        backgroundColor = .systemBackground
     }
     
     override func prepareForReuse() {

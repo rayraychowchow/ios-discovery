@@ -43,12 +43,12 @@ class SettingsViewController: UIViewController {
     }
     
     func setupUI() {
-        view.backgroundColor = .white
+        view.backgroundColor = .systemBackground
         
         view.addSubview(tableView)
         tableView.do {
             $0.edgesToSuperview()
-            $0.backgroundColor = .white
+            $0.backgroundColor = .systemBackground
             $0.rowHeight = 44
         }
         
@@ -69,7 +69,7 @@ class SettingsViewController: UIViewController {
             case .darkMode(let model):
                 if let cell = tableview.dequeueReusableCell(withIdentifier: SettingsWithSwitchTableViewCell.reuseId) as? SettingsWithSwitchTableViewCell {
                     cell.setupCell(darkModeSetting: model)
-                    cell.switchButton.rx.isOn.bind(to: this._viewModel.input.onDarkModeSwitched).disposed(by: cell.disposeBag)
+                    cell.switchButton.rx.isOn.changed.bind(to: this._viewModel.input.onDarkModeSwitched).disposed(by: cell.disposeBag)
                     return cell
                 }
                 break
@@ -83,7 +83,7 @@ class SettingsViewController: UIViewController {
                 this._viewModel.input.onLanguageButtonTapped.onNext(())
             }
         }.subscribe().disposed(by: disposeBag)
-  
+        _viewModel.output.navigationTitle.drive(rx.title).disposed(by: disposeBag)
         rx.viewWillAppear.take(1).bind(to: _viewModel.input.onReload).disposed(by: disposeBag)
     }
 }

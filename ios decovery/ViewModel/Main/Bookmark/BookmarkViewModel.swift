@@ -60,7 +60,7 @@ extension ViewModelInput where ViewModel: BookmarkViewModel {
 
 extension ViewModelOutput where ViewModel: BookmarkViewModel {
     var tabbarTitle: Driver<String> {
-        base.stringProvider.stringObservable(forKey: "main_view_bottom_navigation_item_title_settings").asDriver(onErrorJustReturn: "")
+        base.stringProvider.stringObservable(forKey: "main_view_bottom_navigation_item_title_bookmark").asDriver(onErrorJustReturn: "")
     }
     
     var navigationTitle: Driver<String> {

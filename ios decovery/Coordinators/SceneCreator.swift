@@ -19,6 +19,7 @@ class SceneCreator {
     var localDatabaseService: LocalDatabaseService { parent.localDatabaseService }
     var stringProvider: StringProvider { parent.stringProvider }
     var imageProvider: ImageProvider { parent.imageProvider }
+    var darkModeProvider: DarkModeProvider { parent.darkModeProvider }
     var onChangeLanguageStream: PublishSubject<Language> { parent.onChangeLanguageStream }
     
     init(coordinator: Coordinator) {
@@ -40,8 +41,8 @@ class SceneCreator {
         let navigationController = CustomNavigationController(rootViewController: viewController)
         let appearance = UINavigationBarAppearance()
         appearance.configureWithOpaqueBackground()
-        appearance.backgroundColor = .white
-        appearance.titleTextAttributes = [.foregroundColor: UIColor.black]
+        appearance.backgroundColor = .systemBackground
+        appearance.titleTextAttributes = [.foregroundColor: UIColor.label]
         UINavigationBar.appearance(whenContainedInInstancesOf: [UINavigationController.self]).standardAppearance = appearance
         UINavigationBar.appearance(whenContainedInInstancesOf: [UINavigationController.self]).scrollEdgeAppearance = appearance
         
@@ -64,7 +65,7 @@ class SceneCreator {
             bookmarkVC.setupTabBar()
             return bookmarkWithNavVC
         case .settings:
-            let viewModel = SettingsViewModel(languageCoordinatorType: parent, stringProvider: stringProvider, userDefaultsStore: userDefaultsStore)
+            let viewModel = SettingsViewModel(languageCoordinatorType: parent, darkModeCoordinatorType: parent, stringProvider: stringProvider, darkModeProvider: darkModeProvider, userDefaultsStore: userDefaultsStore)
             let settingsVC = SettingsViewController(viewModel: viewModel)
             let settingsWithNavVC = embedWithUINavigationController(viewController: settingsVC)
             settingsVC.setupTabBar()

@@ -14,19 +14,23 @@ class SettingsViewModel: CommonViewModel {
     var onError: Observable<Error> { _onError }
     
     fileprivate let stringProvider: StringProvider
+    fileprivate let darkModeProvider: DarkModeProvider
     fileprivate let userDefaultsStore: UserDefaultsStore
     fileprivate let _onLanguageButtonTapped = PublishSubject<Void>()
     fileprivate let _onDarkModeSwitched = PublishSubject<Bool>()
     fileprivate let languageCoordinatorType: LanguageCoordinatorType
+    fileprivate let darkModeCoordinatorType: DarkModeCoordinatorType
     fileprivate let disposeBag = DisposeBag()
     fileprivate let onReload = PublishSubject<Void>()
     
     fileprivate let settings = BehaviorRelay<[AppSettings]>(value: [])
     
-    init(languageCoordinatorType: LanguageCoordinatorType, stringProvider: StringProvider, userDefaultsStore: UserDefaultsStore) {
+    init(languageCoordinatorType: LanguageCoordinatorType, darkModeCoordinatorType: DarkModeCoordinatorType, stringProvider: StringProvider, darkModeProvider: DarkModeProvider, userDefaultsStore: UserDefaultsStore) {
         self.stringProvider = stringProvider
+        self.darkModeProvider = darkModeProvider
         self.userDefaultsStore = userDefaultsStore
         self.languageCoordinatorType = languageCoordinatorType
+        self.darkModeCoordinatorType = darkModeCoordinatorType
         
         disposeBag.insert([
             _onLanguageButtonTapped.withUnretained(self).do(onNext: { this, _ in
@@ -34,19 +38,20 @@ class SettingsViewModel: CommonViewModel {
                 this.onReload.onNext(())
             }).subscribe(),
             onReload.withUnretained(self).do(onNext: { this, _ in
-                this.getSettings()
+                this.getSettings(language: userDefaultsStore.currentLanguage, isDarkMode: userDefaultsStore.isDarkMode ?? false)
             }).subscribe(),
             _onDarkModeSwitched.withUnretained(self).do(onNext: { this, value in
-                
+                this.darkModeCoordinatorType.changeToDarkMode(value)
             }).subscribe(),
-            stringProvider.onLanguageChangeCompleted.withUnretained(self).do(onNext: { this, language in
-                this.getSettings(language: language)
+            Observable.combineLatest(stringProvider.onLanguageChangeCompleted ,darkModeProvider.darkModeStream).withUnretained(self).do(onNext: { (this, arg1) in
+                let (language, isDarkMode) = arg1
+                this.getSettings(language: language, isDarkMode: isDarkMode)
             }).subscribe()
         ])
     }
     
-    private func getSettings(language: Language? = nil) {
-        settings.accept([AppSettings.language(model: LanguageSetting(currentLanguage: language ?? .en, title: stringProvider.getString(forKey: "current_language"))), AppSettings.darkMode(model: DarkModeSetting(isDarkMode: true, title: stringProvider.getString(forKey: "settings_view_dark_mode")))])
+    private func getSettings(language: Language? = nil, isDarkMode: Bool = false) {
+        settings.accept([AppSettings.language(model: LanguageSetting(currentLanguage: language ?? .en, title: stringProvider.getString(forKey: "current_language"))), AppSettings.darkMode(model: DarkModeSetting(isDarkMode: isDarkMode, title: stringProvider.getString(forKey: "settings_view_dark_mode")))])
     }
 }
 //rx.viewWillAppear.take(1).mapAsVoid().bind(to: _viewModel.input.onReload),
@@ -65,6 +70,10 @@ extension ViewModelInput where ViewModel: SettingsViewModel {
 }
 
 extension ViewModelOutput where ViewModel: SettingsViewModel {
+    var navigationTitle: Driver<String> {
+        base.stringProvider.stringObservable(forKey: "main_view_bottom_navigation_item_title_settings").asDriver(onErrorJustReturn: "")
+    }
+    
     var tabbarTitle: Driver<String> {
         base.stringProvider.stringObservable(forKey: "main_view_bottom_navigation_item_title_settings").asDriver(onErrorJustReturn: "")
     }

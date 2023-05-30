@@ -32,24 +32,24 @@ class MainTabController : UITabBarController {
     
     func setupUI() {
         setViewControllers(_viewControllers, animated: true)
-        UITabBar.appearance().backgroundColor = UIColor.white
+        UITabBar.appearance().backgroundColor = .systemBackground
         
         let appearance = tabBar.standardAppearance
         appearance.configureWithTransparentBackground()
-        appearance.stackedLayoutAppearance.normal.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.gray]
-        appearance.stackedLayoutAppearance.normal.iconColor = UIColor.gray
+        appearance.stackedLayoutAppearance.normal.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.systemGray]
+        appearance.stackedLayoutAppearance.normal.iconColor = .systemGray
         tabBar.standardAppearance = appearance
         
         
     }
     
     func bindViewModel() {
-        _disposeBag.insert (
-            [rx.didSelect.withUnretained(self).map { this, vc in
-                this.viewControllers?.firstIndex(of: vc) ?? 0
-            }.bind(to: _viewModel.input.onTabSwitched),
-             _viewModel.output.navigationTitle.drive(navigationItem.rx.title)]
-        )
+//        _disposeBag.insert (
+//            [rx.didSelect.withUnretained(self).map { this, vc in
+//                this.viewControllers?.firstIndex(of: vc) ?? 0
+//            }.bind(to: _viewModel.input.onTabSwitched),
+//             _viewModel.output.navigationTitle.drive(navigationItem.rx.title)]
+//        )
     }
     
 }

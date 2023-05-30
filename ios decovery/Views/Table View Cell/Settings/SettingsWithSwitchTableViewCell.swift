@@ -24,7 +24,7 @@ class SettingsWithSwitchTableViewCell: BaseTableViewCell, CustomCellable {
         titleLabel.do { label in
             label.centerYToSuperview()
             label.leftToSuperview(offset: 8)
-            label.textColor = .black
+            label.textColor = .label
         }
         
         contentView.addSubview(switchButton)
@@ -36,7 +36,8 @@ class SettingsWithSwitchTableViewCell: BaseTableViewCell, CustomCellable {
     
     func setupCell(darkModeSetting: DarkModeSetting) {
         titleLabel.text = darkModeSetting.title
-        backgroundColor = .white
+        switchButton.isOn = darkModeSetting.isDarkMode
+        backgroundColor = .systemBackground
     }
     
     override func prepareForReuse() {

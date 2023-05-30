@@ -44,7 +44,7 @@ class AlbumViewController: UIViewController, UISearchBarDelegate {
     }
     
     func setupUI() {
-        view.backgroundColor = .white
+        view.backgroundColor = .systemBackground
         view.addSubview(searchBar)
         view.addSubview(tableView)
         
@@ -55,7 +55,7 @@ class AlbumViewController: UIViewController, UISearchBarDelegate {
         }
 
         tableView.do {
-            $0.backgroundColor = .white
+            $0.backgroundColor = .systemBackground
             $0.topToBottom(of: searchBar)
             $0.edgesToSuperview(excluding: .top)
             $0.rowHeight = UITableView.automaticDimension

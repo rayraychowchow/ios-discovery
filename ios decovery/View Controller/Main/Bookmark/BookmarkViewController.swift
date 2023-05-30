@@ -42,10 +42,10 @@ class BookmarkViewController: UIViewController {
     }
     
     func setupUI() {
-        view.backgroundColor = .white
+        view.backgroundColor = .systemBackground
         view.addSubview(tableView)
         tableView.do {
-            $0.backgroundColor = .white
+            $0.backgroundColor = .systemBackground
             $0.edgesToSuperview()
             $0.register(BookmarkTableViewCell.self, forCellReuseIdentifier: BookmarkTableViewCell.reuseId)
         }

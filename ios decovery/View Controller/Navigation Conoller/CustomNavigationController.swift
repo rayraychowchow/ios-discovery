@@ -16,6 +16,6 @@ class CustomNavigationController: UINavigationController {
     }
     
     override var preferredStatusBarStyle: UIStatusBarStyle {
-        .darkContent
+        (UserDefaultsStore.shared.isDarkMode ?? false) ? .lightContent : .darkContent
     }
 }

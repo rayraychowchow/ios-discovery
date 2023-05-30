@@ -18,10 +18,10 @@ class BookmarkTableViewCell: BaseTableViewCell, CustomCellable {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
         contentView.addSubview(titleLabel)
-        backgroundColor = .white
+        backgroundColor = .systemBackground
         selectionStyle = .none
         titleLabel.do {
-            $0.textColor = .black
+            $0.textColor = .label
             $0.height(min: 60)
             $0.edgesToSuperview(insets: TinyEdgeInsets(top: 0, left: 8, bottom: 0, right: -8))
             $0.numberOfLines = 2

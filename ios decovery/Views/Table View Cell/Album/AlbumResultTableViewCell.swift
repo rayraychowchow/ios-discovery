@@ -19,13 +19,13 @@ class AlbumResultTableViewCell: BaseTableViewCell, CustomCellable {
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
-        backgroundColor = .white
+        backgroundColor = .systemBackground
         selectionStyle = .none
         contentView.addSubview(titleLabel)
         titleLabel.do { label in
             label.centerYToSuperview()
             label.leftToSuperview(offset: 8)
-            label.textColor = .black
+            label.textColor = .label
             label.height(min: 60)
             label.topToSuperview()
             label.bottomToSuperview()

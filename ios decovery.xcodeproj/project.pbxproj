@@ -62,6 +62,9 @@
 		99ACF2772A24649600C953FF /* ITunesSearchAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99ACF2762A24649600C953FF /* ITunesSearchAPI.swift */; };
 		99ACF27A2A246A9B00C953FF /* NetworkService+ITunesSearchAPIType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99ACF2792A246A9B00C953FF /* NetworkService+ITunesSearchAPIType.swift */; };
 		99ACF27D2A2489AF00C953FF /* AlbumResultTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99ACF27C2A2489AF00C953FF /* AlbumResultTableViewCell.swift */; };
+		99B1A57D2A25FDE500B1799F /* DarkModeCoordinatorType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99B1A57C2A25FDE500B1799F /* DarkModeCoordinatorType.swift */; };
+		99B1A57F2A2601CF00B1799F /* DarkModeProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99B1A57E2A2601CF00B1799F /* DarkModeProvider.swift */; };
+		99B1A5812A26023800B1799F /* UserDefaultsStore+DarkMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99B1A5802A26023800B1799F /* UserDefaultsStore+DarkMode.swift */; };
 		99EBEC532A24A66F004AB0DD /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 99EBEC522A24A66F004AB0DD /* RealmSwift */; };
 		99EBEC552A24A881004AB0DD /* RealmManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99EBEC542A24A881004AB0DD /* RealmManager.swift */; };
 		99EBEC582A24AD4B004AB0DD /* LocalDatabaseService+BookmarkITunesCollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99EBEC572A24AD4B004AB0DD /* LocalDatabaseService+BookmarkITunesCollection.swift */; };
@@ -122,6 +125,9 @@
 		99ACF2792A246A9B00C953FF /* NetworkService+ITunesSearchAPIType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NetworkService+ITunesSearchAPIType.swift"; sourceTree = "<group>"; };
 		99ACF27C2A2489AF00C953FF /* AlbumResultTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumResultTableViewCell.swift; sourceTree = "<group>"; };
 		99B1A57B2A25FC2D00B1799F /* zh-HK */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-HK"; path = "zh-HK.lproj/LaunchScreen.strings"; sourceTree = "<group>"; };
+		99B1A57C2A25FDE500B1799F /* DarkModeCoordinatorType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DarkModeCoordinatorType.swift; sourceTree = "<group>"; };
+		99B1A57E2A2601CF00B1799F /* DarkModeProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DarkModeProvider.swift; sourceTree = "<group>"; };
+		99B1A5802A26023800B1799F /* UserDefaultsStore+DarkMode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserDefaultsStore+DarkMode.swift"; sourceTree = "<group>"; };
 		99EBEC542A24A881004AB0DD /* RealmManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmManager.swift; sourceTree = "<group>"; };
 		99EBEC572A24AD4B004AB0DD /* LocalDatabaseService+BookmarkITunesCollection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "LocalDatabaseService+BookmarkITunesCollection.swift"; sourceTree = "<group>"; };
 		99EBEC5A2A24ADE9004AB0DD /* LocalDatabaseITunesCollectionType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalDatabaseITunesCollectionType.swift; sourceTree = "<group>"; };
@@ -329,6 +335,7 @@
 				99ACF2222A1CC7C900C953FF /* StringProvider.swift */,
 				99ACF2242A1CC80700C953FF /* StringProviderType.swift */,
 				99EBEC622A25EC6B004AB0DD /* ImageProvider.swift */,
+				99B1A57E2A2601CF00B1799F /* DarkModeProvider.swift */,
 			);
 			path = Provider;
 			sourceTree = "<group>";
@@ -359,6 +366,7 @@
 			children = (
 				99ACF2012A1CAA3700C953FF /* UserDefaultsStore.swift */,
 				99ACF22E2A1DD7A800C953FF /* UserDefaultsStore+Localization.swift */,
+				99B1A5802A26023800B1799F /* UserDefaultsStore+DarkMode.swift */,
 			);
 			path = UserDefaultsStore;
 			sourceTree = "<group>";
@@ -379,6 +387,7 @@
 				99ACF23A2A1DFC5700C953FF /* AlbumCoordinatorType.swift */,
 				99ACF2462A1F4B2D00C953FF /* ModalViewCorrdinatorType.swift */,
 				99ACF2422A1F3F1D00C953FF /* LanguageCoordinatorType.swift */,
+				99B1A57C2A25FDE500B1799F /* DarkModeCoordinatorType.swift */,
 			);
 			path = "Coordinator Type";
 			sourceTree = "<group>";
@@ -638,6 +647,7 @@
 				99ACF2042A1CAA4400C953FF /* LocalDatabaseService.swift in Sources */,
 				99ACF25B2A1F60FB00C953FF /* SettingsWithSwitchTableViewCell.swift in Sources */,
 				99ACF21E2A1CBAA300C953FF /* CommonViewModel.swift in Sources */,
+				99B1A57D2A25FDE500B1799F /* DarkModeCoordinatorType.swift in Sources */,
 				99ACF20A2A1CB20700C953FF /* AlbumViewController.swift in Sources */,
 				99ACF2452A1F463E00C953FF /* DetailsViewController.swift in Sources */,
 				99ACF2602A1F64A300C953FF /* AppSetting.swift in Sources */,
@@ -651,10 +661,12 @@
 				99EBEC582A24AD4B004AB0DD /* LocalDatabaseService+BookmarkITunesCollection.swift in Sources */,
 				99EBEC632A25EC6B004AB0DD /* ImageProvider.swift in Sources */,
 				99ACF24A2A1F4C2600C953FF /* DetailsViewModel.swift in Sources */,
+				99B1A57F2A2601CF00B1799F /* DarkModeProvider.swift in Sources */,
 				99ACF1D12A1C9B6000C953FF /* AppDelegate.swift in Sources */,
 				99ACF23B2A1DFC5700C953FF /* AlbumCoordinatorType.swift in Sources */,
 				99ACF2732A245D7B00C953FF /* iTunesCollection.swift in Sources */,
 				99ACF25E2A1F649500C953FF /* AppSettings.swift in Sources */,
+				99B1A5812A26023800B1799F /* UserDefaultsStore+DarkMode.swift in Sources */,
 				99ACF21C2A1CBA1A00C953FF /* ViewModelType.swift in Sources */,
 				99ACF2772A24649600C953FF /* ITunesSearchAPI.swift in Sources */,
 				99ACF1FD2A1CA55E00C953FF /* MainTabViewModel.swift in Sources */,

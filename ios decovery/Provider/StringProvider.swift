@@ -9,26 +9,18 @@ import Foundation
 import RxSwift
 import RxCocoa
 
-class StringProvider {
+class StringProvider: StringProviderType {
     
     private static let queueName = "decovery.StringProvider"
     private static let rxQueueName = "Rx." + queueName
     private lazy var queue = DispatchQueue(label: Self.queueName, qos: .default)
-    //    private static let rootDirectoryName = "AppPatch"
-    //    private let rootDirectoryUrl: URL
-    
+
     private let disposeBag = DisposeBag()
     private let translations = BehaviorSubject<[String: String]>(value: [:])
-    private let onChangeLanguage:Observable<Language>
+    let onChangeLanguage: Observable<Language>
     let onLanguageChangeCompleted = PublishSubject<Language>()
 
-    
     init(onChangeLanguage: Observable<Language>) {
-        //        let fileManager = FileManager.default
-        //        rootDirectoryUrl = (try? fileManager.url(for: .applicationSupportDirectory, in: .userDomainMask, appropriateFor: nil, create: false).appendingPathComponent(Self.rootDirectoryName)) ?? URL(fileURLWithPath: "")
-        
-        
-        
         // get the json and apply to translation
         
         self.onChangeLanguage = onChangeLanguage

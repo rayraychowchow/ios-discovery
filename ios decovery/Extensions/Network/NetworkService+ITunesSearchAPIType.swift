@@ -11,8 +11,10 @@ import Alamofire
 
 extension NetworkService: ITunesSearchAPIType {
     func forITunesSearch(term: String) -> Single<ItunesSearchResponse> {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss'Z'"
         return getDecodableReponse(url: "https://itunes.apple.com/search",
-                         params: ["term": term, "entity": "album"], encoding: URLEncoding.default)
+                         params: ["term": term, "entity": "album"], encoding: URLEncoding.default, dateFormatter: dateFormatter)
 
     }
 }

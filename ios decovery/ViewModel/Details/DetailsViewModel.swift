@@ -9,7 +9,6 @@ import Foundation
 import RxSwift
 import RxCocoa
 import UIKit
-import Kingfisher
 
 class DetailsViewModel: CommonViewModel {
     var onError: Observable<Error> { _onError }
